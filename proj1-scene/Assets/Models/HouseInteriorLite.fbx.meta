@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: 8e8d6e5e3193dc64bb3202f7eb925326
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Apple
+    100002: Cup
+    100004: Floor1
+    100006: Floor2
+    100008: Flower1
+    100010: Flower2
+    100012: //RootNode
+    100014: Lamp1
+    100016: Lamp2
+    100018: Picture1
+    100020: Picture2
+    100022: Pillow
+    100024: Plate1
+    100026: Room_Table
+    100028: Sofa1
+    100030: Sofa2
+    100032: Table
+    100034: Wall1
+    100036: Wall2
+    400000: Apple
+    400002: Cup
+    400004: Floor1
+    400006: Floor2
+    400008: Flower1
+    400010: Flower2
+    400012: //RootNode
+    400014: Lamp1
+    400016: Lamp2
+    400018: Picture1
+    400020: Picture2
+    400022: Pillow
+    400024: Plate1
+    400026: Room_Table
+    400028: Sofa1
+    400030: Sofa2
+    400032: Table
+    400034: Wall1
+    400036: Wall2
+    2100000: Wall1_2
+    2100002: Wall1_1
+    2100004: Window1_1
+    2100006: Floor1_1
+    2100008: Floor2_1.001
+    2100010: Flower4_1
+    2100012: Flower4_2
+    2100014: Flower4_3
+    2100016: Flower4_4
+    2100018: Flower2_1
+    2100020: Flower2_2
+    2100022: Flower2_3
+    2100024: Apple1_2
+    2100026: Apple1_1
+    2100028: Plate1
+    2100030: Cup1
+    2100032: Sofa2_1
+    2100034: Sofa2_2
+    2100036: Table1_1
+    2100038: Pillow1_1
+    2100040: Lamp1_1
+    2100042: Lamp1_3
+    2100044: Lamp1_2
+    2100046: Room_Table1
+    2100048: Picture2_1
+    2100050: Picture2_2
+    2100052: Lamp2_3
+    2100054: Lamp2_1
+    2100056: Lamp2_2
+    2100058: Picture2_3.001
+    2300000: Apple
+    2300002: Cup
+    2300004: Floor1
+    2300006: Floor2
+    2300008: Flower1
+    2300010: Flower2
+    2300012: Lamp1
+    2300014: Lamp2
+    2300016: Picture1
+    2300018: Picture2
+    2300020: Pillow
+    2300022: Plate1
+    2300024: Room_Table
+    2300026: Sofa1
+    2300028: Sofa2
+    2300030: Table
+    2300032: Wall1
+    2300034: Wall2
+    3300000: Apple
+    3300002: Cup
+    3300004: Floor1
+    3300006: Floor2
+    3300008: Flower1
+    3300010: Flower2
+    3300012: Lamp1
+    3300014: Lamp2
+    3300016: Picture1
+    3300018: Picture2
+    3300020: Pillow
+    3300022: Plate1
+    3300024: Room_Table
+    3300026: Sofa1
+    3300028: Sofa2
+    3300030: Table
+    3300032: Wall1
+    3300034: Wall2
+    4300000: Wall1
+    4300002: Wall2
+    4300004: Floor1
+    4300006: Floor2
+    4300008: Flower2
+    4300010: Flower1
+    4300012: Apple
+    4300014: Plate1
+    4300016: Cup
+    4300018: Sofa1
+    4300020: Sofa2
+    4300022: Table
+    4300024: Pillow
+    4300026: Lamp1
+    4300028: Room_Table
+    4300030: Picture1
+    4300032: Lamp2
+    4300034: Picture2
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
