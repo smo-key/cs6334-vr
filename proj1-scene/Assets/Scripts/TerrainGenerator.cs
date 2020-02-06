@@ -74,8 +74,8 @@ public class TerrainGenerator : MonoBehaviour
         //get vertex positions (floor to get the lower-left always)
         int xVertex = Mathf.FloorToInt(x * vertexCountRadius) + vertexCountRadius;
         int zVertex = Mathf.FloorToInt(z * vertexCountRadius) + vertexCountRadius;
-        xVertex = Mathf.Clamp(xVertex, 0, vertexCountRadius * 2);
-        zVertex = Mathf.Clamp(zVertex, 0, vertexCountRadius * 2);
+        xVertex = Mathf.Clamp(xVertex, 0, vertexCountRadius * 2 - 1);
+        zVertex = Mathf.Clamp(zVertex, 0, vertexCountRadius * 2 - 1);
 
         //locate quad
         int quadIndex = (xVertex) * (vertexCountRadius * 2) + (zVertex);
@@ -372,6 +372,11 @@ public class TerrainGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GameObject cam = GameObject.Find("HeadAnchor");
+        if (cam != null)
+        {
+            float height = GetHeightAtPoint(cam.transform.position.x, cam.transform.position.z);
+            cam.transform.position = new Vector3(cam.transform.position.x, height + 1.8f, cam.transform.position.z);
+        }
     }
 }
