@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Terrain.Biomes;
-using Assets.Scripts.Util;
+﻿using Assets.Scripts.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
