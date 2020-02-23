@@ -1,1 +1,10 @@
 People Talking Ambient Sound: https://freesound.org/people/priesjensen/sounds/482990/
+
+Kitchen source 1:
+https://assetstore.unity.com/packages/3d/props/coffeeshop-starter-pack-160914
+
+Kitchen source 2:
+https://assetstore.unity.com/packages/3d/environments/kitchen-creation-kit-2854
+
+Fire: 
+https://assetstore.unity.com/packages/vfx/particles/fire-explosions/procedural-fire-141496
