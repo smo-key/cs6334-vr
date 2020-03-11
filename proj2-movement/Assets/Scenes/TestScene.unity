@@ -5554,6 +5554,11 @@ PrefabInstance:
       propertyPath: elements.Array.data[1]
       value: 
       objectReference: {fileID: 2023575811}
+    - target: {fileID: 4893095752389336993, guid: ae0332a1eea44df4ca54bb67f6645dd8,
+        type: 3}
+      propertyPath: currentIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6013313824313023533, guid: ae0332a1eea44df4ca54bb67f6645dd8,
         type: 3}
       propertyPath: elements.Array.size

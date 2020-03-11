@@ -30,17 +30,12 @@ namespace VRChef
         [SerializeField] private KeyCode keyCPad = KeyCode.LeftAlt;
         [SerializeField] private KeyCode keyCrouch = KeyCode.LeftControl;
         [SerializeField] private KeyCode keyRun = KeyCode.LeftShift;
-        [SerializeField] private GameObject hotbox;
-        [SerializeField] private GameObject hotboxCircle;
-        [SerializeField] private AnimationCurve hotboxDeltaCurve = AnimationCurve.Linear(0, 1, 1, 0);
 
         private Camera camera;
         private CharacterController characterController;
         private AudioSource audioSource;
 
         private float currentMoveSpeed = 0.0f;
-        private Vector2 hotboxPosition = Vector2.zero;
-        private Vector3 defaultHotboxPosition;
 
         // Use this for initialization
         private void Start()
@@ -49,41 +44,24 @@ namespace VRChef
             characterController = GetComponent<CharacterController>();
             audioSource = GetComponent<AudioSource>();
             mouseLook.Init(transform, camera.transform);
-            defaultHotboxPosition = hotboxCircle.transform.localPosition;
         }
 
         // Update is called once per frame
         private void Update()
         {
-            bool isMovingWithMouse = Input.GetKey(keyCPad);
+            bool isMovingWithMouse = false;
 
             if (!isMovingWithMouse)
             {
                 //mouse rotates camera
                 mouseLook.LookRotation(transform, camera.transform);
-
-                //reset hotbox
-                hotboxPosition = Vector2.zero;
             } else
             {
                 //mouse moves character
-                Vector2 mouseDelta = Vector2.zero;
-                mouseDelta.x = CrossPlatformInputManager.GetAxis("Mouse X") * mouseMoveSensitivity;
-                mouseDelta.y = CrossPlatformInputManager.GetAxis("Mouse Y") * mouseMoveSensitivity;
-
-                Vector2 newHotboxPosition = hotboxPosition + mouseDelta;
-                float updateMagnitude = hotboxDeltaCurve.Evaluate(newHotboxPosition.magnitude);
-                hotboxPosition += mouseDelta * updateMagnitude;
+                //Vector2 mouseDelta = Vector2.zero;
+                //mouseDelta.x = CrossPlatformInputManager.GetAxis("Mouse X") * mouseMoveSensitivity;
+                //mouseDelta.y = CrossPlatformInputManager.GetAxis("Mouse Y") * mouseMoveSensitivity;
             }
-
-            //update hotbox UI
-            Image hotboxImg = hotbox.GetComponent<Image>();
-            Color hotboxColor = hotboxImg.color;
-            hotboxColor.a = isMovingWithMouse ? 1f : 0.3f;
-            hotboxImg.color = hotboxColor;
-            Image hotboxCenterImg = hotboxCircle.GetComponent<Image>();
-            hotboxCenterImg.color = hotboxPosition.magnitude > 0 ? Color.green : Color.gray;
-            hotboxCircle.transform.localPosition = defaultHotboxPosition + new Vector3(hotboxPosition.x * 50f, hotboxPosition.y * 50f, 0);
         }
 
         private void FixedUpdate()
@@ -99,10 +77,6 @@ namespace VRChef
                 directionalInput.y -= Input.GetKey(keyMoveBackward) ? 1 : 0;
 
                 //mouse looks, see Update()
-            } else {
-                //mouse moves character
-                directionalInput.x = hotboxPosition.x;
-                directionalInput.y = hotboxPosition.y;
             }
 
             //process move speed
@@ -153,7 +127,6 @@ namespace VRChef
 
             //PlayFootStepAudio();
         }
-
 
         private void PlayFootStepAudio()
         {
