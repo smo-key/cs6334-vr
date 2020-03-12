@@ -50,7 +50,7 @@ public class InteractionController : MonoBehaviour
             interactable.GetComponent<IInteractionListener>().OnFrame(this);
         }
 
-        if (NearestObject != null) print(DistanceFromObject(NearestObject));
+        //if (NearestObject != null) print(DistanceFromObject(NearestObject));
 
         if (NearestObject != null && DistanceFromObject(NearestObject) < InteractionRange)
         {
