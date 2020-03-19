@@ -34,9 +34,16 @@ public class KnifeInteractionListener : InteractionListener
             gameObject.transform.position = controller.Target.transform.position;
             gameObject.transform.rotation = controller.Target.transform.rotation;
             handRenderer.enabled = false;
-            print("Knife: " + gameObject.transform.rotation);
-            print("Hand: " + controller.Target.transform.rotation);
-            gameObject.transform.Rotate(controller.transform.rotation.x + 45, controller.transform.rotation.y + 45, controller.transform.rotation.z + 45);
+            //print("Knife: " + gameObject.transform.rotation);
+            //print("Hand: " + controller.Target.transform.rotation);
+            if (controller.Name.Equals("Left"))
+            {
+                gameObject.transform.Rotate(controller.transform.rotation.x + 45, controller.transform.rotation.y + 45, controller.transform.rotation.z + 45);
+            }
+            else if (controller.Name.Equals("Right"))
+            {
+                gameObject.transform.Rotate(controller.transform.rotation.x + 45, controller.transform.rotation.y - 45, controller.transform.rotation.z + 45);
+            }
         }
     }
 
