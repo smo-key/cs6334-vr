@@ -9,10 +9,12 @@ public class FoodInteractionListener : InteractionListener
     
     bool IsGrabbed = false;
     MeshRenderer ObjectRenderer;
+    Rigidbody rb;
 
     public void Start()
     {
         ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     public override void OnFrame(InteractionController controller)
@@ -22,7 +24,6 @@ public class FoodInteractionListener : InteractionListener
         {
             var hand = controller.GetHand();
             var handRenderer = hand.GetComponent<MeshRenderer>();
-
             gameObject.transform.position = controller.Target.transform.position;
             handRenderer.enabled = false;
         }
@@ -48,6 +49,7 @@ public class FoodInteractionListener : InteractionListener
         //make the hand mesh invisible
         IsGrabbed = true;
         handRenderer.enabled = false;
+        rb.isKinematic = true;
     }
 
     public override void OnDrop(InteractionController controller)
@@ -58,5 +60,6 @@ public class FoodInteractionListener : InteractionListener
         //remove food item
         IsGrabbed = false;
         handRenderer.enabled = true;
+        rb.isKinematic = false;
     }
 }
