@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
 public class KnifeInteractionListener : InteractionListener
@@ -8,13 +9,19 @@ public class KnifeInteractionListener : InteractionListener
     public Material SelectedMaterial;
     
     bool IsGrabbed = false;
-    MeshRenderer ObjectRenderer;
+    //MeshRenderer ObjectRenderer;
+    List<MeshRenderer> objectRenderers;
     Rigidbody rb;
 
     public void Start()
     {
-        ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+        //ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
         rb = gameObject.GetComponent<Rigidbody>();
+        objectRenderers = new List<MeshRenderer>();
+        foreach (Transform child in transform)
+        {
+            objectRenderers.Add(child.GetComponent<MeshRenderer>());
+        }
     }
 
     public override void OnFrame(InteractionController controller)
@@ -25,20 +32,32 @@ public class KnifeInteractionListener : InteractionListener
             var hand = controller.GetHand();
             var handRenderer = hand.GetComponent<MeshRenderer>();
             gameObject.transform.position = controller.Target.transform.position;
+            gameObject.transform.rotation = controller.Target.transform.rotation;
             handRenderer.enabled = false;
+            print("Knife: " + gameObject.transform.rotation);
+            print("Hand: " + controller.Target.transform.rotation);
+            gameObject.transform.Rotate(controller.transform.rotation.x + 45, controller.transform.rotation.y + 45, controller.transform.rotation.z + 45);
         }
     }
 
     public override void OnEnterClosest(InteractionController controller)
     {
         //highlight it
-        ObjectRenderer.material = SelectedMaterial;
+        //ObjectRenderer.material = SelectedMaterial;
+        foreach(MeshRenderer renderer in objectRenderers)
+        {
+            renderer.material = SelectedMaterial;
+        }
     }
 
     public override void OnLeaveClosest(InteractionController controller)
     {
         //unhighlight it
-        ObjectRenderer.material = DefaultMaterial;
+        //ObjectRenderer.material = DefaultMaterial;
+        foreach (MeshRenderer renderer in objectRenderers)
+        {
+            renderer.material = DefaultMaterial;
+        }
     }
 
     public override void OnGrab(InteractionController controller)
