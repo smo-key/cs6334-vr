@@ -64,7 +64,6 @@ public class InteractionController : MonoBehaviour
         AllControlledObjects.Add(ControlledObject);
         print(ControlledObject);
         ControlledObject.GetComponent<InteractionListener>().OnGrab(this);
-        print("Grab");
     }
 
     public void Drop()
@@ -75,7 +74,6 @@ public class InteractionController : MonoBehaviour
         ControlledObject.GetComponent<InteractionListener>().OnDrop(this);
         AllControlledObjects.Remove(ControlledObject);
         ControlledObject = null;
-        print("Drop");
     }
 
     void Update()
