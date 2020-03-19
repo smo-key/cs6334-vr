@@ -1,54 +1,62 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FoodInteractionListener : MonoBehaviour, IInteractionListener
+[RequireComponent(typeof(Collider))]
+public class FoodInteractionListener : InteractionListener
 {
+    public Material DefaultMaterial;
+    public Material SelectedMaterial;
+    
+    bool IsGrabbed = false;
+    MeshRenderer ObjectRenderer;
 
-    public Material[] materials;
-    bool isGrabbed = false;
+    public void Start()
+    {
+        ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+    }
 
-    public void OnFrame(InteractionController controller)
+    public override void OnFrame(InteractionController controller)
     {
         //attach food item position to hand mesh's position and rotation every frame if grabbed
-        if (!isGrabbed)
+        if (IsGrabbed)
         {
-            this.gameObject.transform.position = controller.Target.transform.position;
-            var hand = controller.transform.GetChild(1).transform.GetChild(0);
-            hand.GetComponent<MeshRenderer>().enabled = false;
+            var hand = controller.GetHand();
+            var handRenderer = hand.GetComponent<MeshRenderer>();
+
+            gameObject.transform.position = controller.Target.transform.position;
+            handRenderer.enabled = false;
         }
     }
 
-    public void OnEnterClosest(InteractionController controller)
+    public override void OnEnterClosest(InteractionController controller)
     {
         //highlight it
-        //Debug.Log("Enter closest: " + controller.DistanceFromObject(this.gameObject));
-        var child = this.gameObject.transform.GetChild(0);
-        print("Closest object is " + child.name);
-        var renderer = child.GetComponent<MeshRenderer>();
-        renderer.material = materials[0];
-
+        ObjectRenderer.material = SelectedMaterial;
     }
 
-    public void OnLeaveClosest(InteractionController controller)
+    public override void OnLeaveClosest(InteractionController controller)
     {
         //unhighlight it
-        var child = this.gameObject.transform.GetChild(0);
-        print("Closest object is " + child.name);
-        var renderer = child.GetComponent<MeshRenderer>();
-        renderer.material = materials[1];
+        ObjectRenderer.material = DefaultMaterial;
     }
 
-    public void OnGrab(InteractionController controller)
+    public override void OnGrab(InteractionController controller)
     {
+        var hand = controller.GetHand();
+        var handRenderer = hand.GetComponent<MeshRenderer>();
+
         //make the hand mesh invisible
-        isGrabbed = true;
-        controller.GetComponent<MeshRenderer>().enabled = false;
+        IsGrabbed = true;
+        handRenderer.enabled = false;
     }
 
-    public void OnDrop(InteractionController controller)
+    public override void OnDrop(InteractionController controller)
     {
+        var hand = controller.GetHand();
+        var handRenderer = hand.GetComponent<MeshRenderer>();
+
         //remove food item
-        isGrabbed = false;
-        controller.GetComponent<MeshRenderer>().enabled = true;
+        IsGrabbed = false;
+        handRenderer.enabled = true;
     }
 }

@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-public interface IInteractionListener
+public abstract class InteractionListener : MonoBehaviour
 {
-    void OnFrame(InteractionController controller);
+    public abstract void OnFrame(InteractionController controller);
 
-    void OnEnterClosest(InteractionController controller);
+    public abstract void OnEnterClosest(InteractionController controller);
 
-    void OnLeaveClosest(InteractionController controller);
+    public abstract void OnLeaveClosest(InteractionController controller);
 
-    void OnGrab(InteractionController controller);
+    public abstract void OnGrab(InteractionController controller);
 
-    void OnDrop(InteractionController controller);
+    public abstract void OnDrop(InteractionController controller);
 }
