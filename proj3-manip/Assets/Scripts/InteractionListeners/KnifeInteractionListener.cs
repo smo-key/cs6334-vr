@@ -3,25 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(Rigidbody))]
 public class KnifeInteractionListener : InteractionListener
 {
-    public Material DefaultMaterial;
     public Material SelectedMaterial;
-    
+
+    private Material[] OriginalMaterials;
+
+    MeshRenderer ObjectRenderer;
     bool IsGrabbed = false;
-    //MeshRenderer ObjectRenderer;
-    List<MeshRenderer> objectRenderers;
-    Rigidbody rb;
+    Rigidbody RigidBody;
 
     public void Start()
     {
-        //ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
-        rb = gameObject.GetComponent<Rigidbody>();
-        objectRenderers = new List<MeshRenderer>();
-        foreach (Transform child in transform)
-        {
-            objectRenderers.Add(child.GetComponent<MeshRenderer>());
-        }
+        ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+        RigidBody = gameObject.GetComponent<Rigidbody>();
+
+        // load materials
+        OriginalMaterials = gameObject.GetComponent<MeshRenderer>().materials;
     }
 
     public override void OnFrame(InteractionController controller)
@@ -42,22 +42,19 @@ public class KnifeInteractionListener : InteractionListener
 
     public override void OnEnterClosest(InteractionController controller)
     {
-        //highlight it
-        //ObjectRenderer.material = SelectedMaterial;
-        foreach(MeshRenderer renderer in objectRenderers)
+        //highlight the object
+        Material[] materials = new Material[ObjectRenderer.materials.Length];
+        for (int i=0; i<materials.Length; i++)
         {
-            renderer.material = SelectedMaterial;
+            materials[i] = SelectedMaterial;
         }
+        ObjectRenderer.materials = materials;
     }
 
     public override void OnLeaveClosest(InteractionController controller)
     {
-        //unhighlight it
-        //ObjectRenderer.material = DefaultMaterial;
-        foreach (MeshRenderer renderer in objectRenderers)
-        {
-            renderer.material = DefaultMaterial;
-        }
+        //unhighlight the object
+        ObjectRenderer.materials = OriginalMaterials;
     }
 
     public override void OnGrab(InteractionController controller)
@@ -68,7 +65,7 @@ public class KnifeInteractionListener : InteractionListener
         //make the hand mesh invisible
         IsGrabbed = true;
         handRenderer.enabled = false;
-        rb.isKinematic = true;
+        RigidBody.isKinematic = true;
     }
 
     public override void OnDrop(InteractionController controller)
@@ -79,6 +76,6 @@ public class KnifeInteractionListener : InteractionListener
         //remove food item
         IsGrabbed = false;
         handRenderer.enabled = true;
-        rb.isKinematic = false;
+        RigidBody.isKinematic = false;
     }
 }
