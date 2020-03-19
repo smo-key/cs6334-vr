@@ -6,15 +6,22 @@ public class FoodInteractionListener : InteractionListener
 {
     public Material DefaultMaterial;
     public Material SelectedMaterial;
-    
+    public Material ChoppedMaterial;
+
     bool IsGrabbed = false;
     MeshRenderer ObjectRenderer;
     Rigidbody rb;
+    bool isChopped = false;
 
     public void Start()
     {
         ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
         rb = gameObject.GetComponent<Rigidbody>();
+    }
+
+    public void onChopped()
+    {
+        isChopped = true;
     }
 
     public override void OnFrame(InteractionController controller)
@@ -26,6 +33,10 @@ public class FoodInteractionListener : InteractionListener
             var handRenderer = hand.GetComponent<MeshRenderer>();
             gameObject.transform.position = controller.Target.transform.position;
             handRenderer.enabled = false;
+        }
+        if (isChopped)
+        {
+            ObjectRenderer.material = ChoppedMaterial;
         }
     }
 

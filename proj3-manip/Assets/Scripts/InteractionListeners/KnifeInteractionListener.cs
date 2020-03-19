@@ -21,6 +21,7 @@ public class KnifeInteractionListener : InteractionListener
     System.TimeSpan timeSpan;
     double prevY = 0;
     double currentY = 0;
+    bool isChopping = false;
 
     public void Start()
     {
@@ -29,6 +30,16 @@ public class KnifeInteractionListener : InteractionListener
 
         // load materials
         OriginalMaterials = gameObject.GetComponent<MeshRenderer>().materials;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print(collision.gameObject.name);
+        if (isChopping && collision.gameObject.name.Contains("Tomato"))
+        {
+            FoodInteractionListener foodInteractionListener = collision.gameObject.GetComponent<FoodInteractionListener>();
+            foodInteractionListener.onChopped();
+        }
     }
 
     public override void OnFrame(InteractionController controller)
@@ -61,9 +72,11 @@ public class KnifeInteractionListener : InteractionListener
                 double diff = currentY - prevY;
                 print("DIFF: " + diff.ToString());
                 ObjectRenderer.materials = OriginalMaterials;
+                isChopping = false;
                 if (diff <= -0.15)
                 {
                     print("Chopped Down");
+                    isChopping = true;
                     Material[] materials2 = new Material[ObjectRenderer.materials.Length];
                     for (int i = 0; i < materials2.Length; i++)
                     {
