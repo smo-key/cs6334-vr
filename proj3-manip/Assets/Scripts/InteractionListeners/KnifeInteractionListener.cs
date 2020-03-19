@@ -9,6 +9,8 @@ public class KnifeInteractionListener : InteractionListener
 {
     public Material SelectedMaterial;
 
+    public Material ChoppedMaterial;
+
     private Material[] OriginalMaterials;
 
     MeshRenderer ObjectRenderer;
@@ -58,9 +60,16 @@ public class KnifeInteractionListener : InteractionListener
                 currentY = gameObject.transform.position.y;
                 double diff = currentY - prevY;
                 print("DIFF: " + diff.ToString());
-                if(diff <= -0.15)
+                ObjectRenderer.materials = OriginalMaterials;
+                if (diff <= -0.15)
                 {
                     print("Chopped Down");
+                    Material[] materials2 = new Material[ObjectRenderer.materials.Length];
+                    for (int i = 0; i < materials2.Length; i++)
+                    {
+                        materials2[i] = ChoppedMaterial;
+                    }
+                    ObjectRenderer.materials = materials2;
                 }
                 prevY = currentY;
                 startTime = System.DateTime.UtcNow;
