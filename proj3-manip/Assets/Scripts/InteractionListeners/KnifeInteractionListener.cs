@@ -15,6 +15,11 @@ public class KnifeInteractionListener : InteractionListener
     bool IsGrabbed = false;
     Rigidbody RigidBody;
 
+    System.DateTime startTime;
+    System.TimeSpan timeSpan;
+    double prevY = 0;
+    double currentY = 0;
+
     public void Start()
     {
         ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
@@ -43,6 +48,22 @@ public class KnifeInteractionListener : InteractionListener
             else if (controller.Name.Equals("Right"))
             {
                 gameObject.transform.Rotate(controller.transform.rotation.x + 45, controller.transform.rotation.y - 45, controller.transform.rotation.z + 45);
+            }
+            //print("Knife: " + gameObject.transform.position);
+            timeSpan = System.DateTime.UtcNow - startTime;
+            //print("Elasped MS: " + timeSpan.TotalMilliseconds);
+            double timeThreshold = 1000;
+            if(timeSpan.TotalMilliseconds >= timeThreshold)
+            {
+                currentY = gameObject.transform.position.y;
+                double diff = currentY - prevY;
+                print("DIFF: " + diff.ToString());
+                if(diff <= -0.15)
+                {
+                    print("Chopped Down");
+                }
+                prevY = currentY;
+                startTime = System.DateTime.UtcNow;
             }
         }
     }
@@ -73,6 +94,9 @@ public class KnifeInteractionListener : InteractionListener
         IsGrabbed = true;
         handRenderer.enabled = false;
         RigidBody.isKinematic = true;
+        startTime = System.DateTime.UtcNow;
+        currentY = gameObject.transform.position.y;
+        prevY = currentY;
     }
 
     public override void OnDrop(InteractionController controller)
