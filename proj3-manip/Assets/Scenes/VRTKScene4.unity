@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3230,7 +3230,7 @@ GameObject:
   - component: {fileID: 1509488861}
   m_Layer: 0
   m_Name: Tomato
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3295,8 +3295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01fcdd6c675f6344eada69ddc680bfd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultMaterial: {fileID: 0}
-  SelectedMaterial: {fileID: 0}
+  DefaultMaterial: {fileID: 2100000, guid: 28b94b665a27d574eb79e5d00947f538, type: 2}
+  SelectedMaterial: {fileID: 2100000, guid: 7c1ff27d304bc4ca9b38bbdf197e522e, type: 2}
 --- !u!4 &1509909753
 Transform:
   m_ObjectHideFlags: 0
