@@ -62,9 +62,9 @@ public class InteractionController : MonoBehaviour
         //grab nearest object
         ControlledObject = NearestObject;
         AllControlledObjects.Add(ControlledObject);
-        print("Grab");
         print(ControlledObject);
         ControlledObject.GetComponent<InteractionListener>().OnGrab(this);
+        print("Grab");
     }
 
     public void Drop()
@@ -75,6 +75,7 @@ public class InteractionController : MonoBehaviour
         ControlledObject.GetComponent<InteractionListener>().OnDrop(this);
         AllControlledObjects.Remove(ControlledObject);
         ControlledObject = null;
+        print("Drop");
     }
 
     void Update()
@@ -111,7 +112,8 @@ public class InteractionController : MonoBehaviour
         NearestObject = newNearestObject;
 
         //send on frame event to all interactables
-        foreach (var interactable in objectsExcludingControlling)
+        var objectsIncludingControlling = ControlledObject ? objectsExcludingControlling.Union(new List<GameObject>() { ControlledObject }) : objectsExcludingControlling;
+        foreach (var interactable in objectsIncludingControlling)
         {
             interactable.GetComponent<InteractionListener>().OnFrame(this);
         }
