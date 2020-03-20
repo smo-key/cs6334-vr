@@ -5,42 +5,31 @@ using System.Collections;
 [RequireComponent(typeof(MeshRenderer))]
 public class DialInteractionListener : InteractionListener
 {
-    public Material DefaultMaterial;
     public Material SelectedMaterial;
-    public Material ChoppedMaterial;
+    private Material DefaultMaterial;
 
     bool IsGrabbed = false;
     MeshRenderer ObjectRenderer;
-    bool isChopped = false;
 
     public void Start()
     {
         ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
-    }
-
-    public void onChopped()
-    {
-        isChopped = true;
+        DefaultMaterial = ObjectRenderer.material;
     }
 
     public override void OnFrame(InteractionController controller)
     {
-        //attach food item position to hand mesh's position and rotation every frame if grabbed
         if (IsGrabbed)
         {
-            var hand = controller.GetHand();
-            var handRenderer = hand.GetComponent<MeshRenderer>();
-            gameObject.transform.position = controller.Target.transform.position;
-            handRenderer.enabled = false;
-        }
-        if (isChopped)
-        {
-            ObjectRenderer.material = ChoppedMaterial;
+            //TODO rotate the dial based on the hand's position
         }
     }
 
     public override void OnEnterClosest(InteractionController controller)
     {
+        //don't do anything if there's an object in the hand
+        if (controller.ControlledObject) return;
+
         //highlight it
         ObjectRenderer.material = SelectedMaterial;
     }

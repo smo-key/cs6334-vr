@@ -44,6 +44,9 @@ public class FoodInteractionListener : InteractionListener
 
     public override void OnEnterClosest(InteractionController controller)
     {
+        //don't do anything if there's an object in the hand
+        if (controller.ControlledObject) return;
+
         //highlight it
         ObjectRenderer.material = SelectedMaterial;
     }

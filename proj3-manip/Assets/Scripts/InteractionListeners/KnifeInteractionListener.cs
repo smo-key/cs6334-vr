@@ -8,12 +8,13 @@ using System.Collections.Generic;
 public class KnifeInteractionListener : InteractionListener
 {
     public Material SelectedMaterial;
-
     public Material ChoppedMaterial;
 
     private Material[] OriginalMaterials;
 
     MeshRenderer ObjectRenderer;
+    MeshCollider MeshCollider;
+    BoxCollider BoxCollider;
     bool IsGrabbed = false;
     Rigidbody RigidBody;
 
@@ -21,24 +22,25 @@ public class KnifeInteractionListener : InteractionListener
     System.TimeSpan timeSpan;
     double prevY = 0;
     double currentY = 0;
-    bool isChopping = false;
+    bool IsChopping = false;
 
     public void Start()
     {
         ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
         RigidBody = gameObject.GetComponent<Rigidbody>();
-
-        // load materials
         OriginalMaterials = gameObject.GetComponent<MeshRenderer>().materials;
+        MeshCollider = gameObject.GetComponent<MeshCollider>();
+        BoxCollider = gameObject.GetComponent<BoxCollider>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         print(collision.gameObject.name);
-        if (isChopping && collision.gameObject.name.Contains("Tomato"))
+
+        if (IsChopping)
         {
-            DialInteractionListener foodInteractionListener = collision.gameObject.GetComponent<DialInteractionListener>();
-            foodInteractionListener.onChopped();
+            FoodInteractionListener foodListener = collision.gameObject.GetComponent<FoodInteractionListener>();
+            if (foodListener) foodListener.onChopped();
         }
     }
 
@@ -72,11 +74,11 @@ public class KnifeInteractionListener : InteractionListener
                 double diff = currentY - prevY;
                 print("DIFF: " + diff.ToString());
                 ObjectRenderer.materials = OriginalMaterials;
-                isChopping = false;
+                IsChopping = false;
                 if (diff <= -0.15)
                 {
                     print("Chopped Down");
-                    isChopping = true;
+                    IsChopping = true;
                     Material[] materials2 = new Material[ObjectRenderer.materials.Length];
                     for (int i = 0; i < materials2.Length; i++)
                     {
@@ -92,6 +94,9 @@ public class KnifeInteractionListener : InteractionListener
 
     public override void OnEnterClosest(InteractionController controller)
     {
+        //don't do anything if there's an object in the hand
+        if (controller.ControlledObject) return;
+
         //highlight the object
         Material[] materials = new Material[ObjectRenderer.materials.Length];
         for (int i=0; i<materials.Length; i++)
@@ -119,6 +124,10 @@ public class KnifeInteractionListener : InteractionListener
         startTime = System.DateTime.UtcNow;
         currentY = gameObject.transform.position.y;
         prevY = currentY;
+
+        //use a box collider
+        BoxCollider.enabled = true;
+        MeshCollider.enabled = false;
     }
 
     public override void OnDrop(InteractionController controller)
@@ -130,5 +139,9 @@ public class KnifeInteractionListener : InteractionListener
         IsGrabbed = false;
         handRenderer.enabled = true;
         RigidBody.isKinematic = false;
+
+        //use a mesh collider
+        MeshCollider.enabled = true;
+        BoxCollider.enabled = false;
     }
 }
