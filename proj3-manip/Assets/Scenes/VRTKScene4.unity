@@ -2910,7 +2910,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2081776469}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1180487973
+--- !u!65 &1180487976
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3193,7 +3193,7 @@ Transform:
   m_LocalPosition: {x: 0.10188913, y: 2.3604825, z: -1.1400764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1775678609}
+  - {fileID: 1675534466}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3718,6 +3718,83 @@ MonoBehaviour:
       m_Calls: []
   equalityTolerance: 1e-45
   axisName: Horizontal
+--- !u!1 &1675534465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1675534466}
+  - component: {fileID: 1675534467}
+  m_Layer: 0
+  m_Name: Steam Audio Manager Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1675534466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675534465}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.10188913, y: -2.3604825, z: 1.1400764}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1405663130}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1675534467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675534465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4576053e6ac4964287500815ebc2f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioEngine: 0
+  sofaFiles: []
+  currentSOFAFile: 0
+  materialPreset: 0
+  materialValue:
+    LowFreqAbsorption: 0.1
+    MidFreqAbsorption: 0.2
+    HighFreqAbsorption: 0.3
+    Scattering: 0.05
+    LowFreqTransmission: 0.1
+    MidFreqTransmission: 0.05
+    HighFreqTransmission: 0.03
+  simulationPreset: 2
+  simulationValue:
+    OcclusionSamples: 128
+    RealtimeRays: 16384
+    RealtimeSecondaryRays: 1024
+    RealtimeBounces: 8
+    RealtimeThreadsPercentage: 5
+    BakeRays: 65536
+    BakeSecondaryRays: 4096
+    BakeBounces: 128
+    BakeThreadsPercentage: 5
+    Duration: 1
+    AmbisonicsOrder: 1
+    MaxSources: 32
+    IrradianceMinDistance: 1
+  updateComponents: 1
+  currentAudioListener: {fileID: 0}
+  showLoadTimeOptions: 1
+  showMassBakingOptions: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1679042768
 GameObject:
   m_ObjectHideFlags: 0
@@ -3825,83 +3902,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686213381}
   m_CullTransparentMesh: 0
---- !u!1 &1775678607
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1775678609}
-  - component: {fileID: 1775678608}
-  m_Layer: 0
-  m_Name: Steam Audio Manager Settings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1775678608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775678607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4576053e6ac4964287500815ebc2f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioEngine: 0
-  sofaFiles: []
-  currentSOFAFile: 0
-  materialPreset: 0
-  materialValue:
-    LowFreqAbsorption: 0.1
-    MidFreqAbsorption: 0.2
-    HighFreqAbsorption: 0.3
-    Scattering: 0.05
-    LowFreqTransmission: 0.1
-    MidFreqTransmission: 0.05
-    HighFreqTransmission: 0.03
-  simulationPreset: 0
-  simulationValue:
-    OcclusionSamples: 128
-    RealtimeRays: 4096
-    RealtimeSecondaryRays: 1024
-    RealtimeBounces: 2
-    RealtimeThreadsPercentage: 5
-    BakeRays: 16384
-    BakeSecondaryRays: 4096
-    BakeBounces: 32
-    BakeThreadsPercentage: 5
-    Duration: 1
-    AmbisonicsOrder: 1
-    MaxSources: 32
-    IrradianceMinDistance: 1
-  updateComponents: 1
-  currentAudioListener: {fileID: 0}
-  showLoadTimeOptions: 0
-  showMassBakingOptions: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!4 &1775678609
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775678607}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.10188913, y: -2.3604825, z: 1.1400764}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1405663130}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1807962885 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0,
@@ -12432,7 +12432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4315896200163261640
 RectTransform:
   m_ObjectHideFlags: 0
