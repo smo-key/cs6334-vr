@@ -1,0 +1,154 @@
+fileFormatVersion: 2
+guid: 1e85c0969445a3044976d928b0b1a375
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Black
+    100002: Body
+    100004: Dial1
+    100006: Dial2
+    100008: Dial3
+    100010: Dial4
+    100012: Dial5
+    100014: Dials
+    100016: Door
+    100018: DoorBody
+    100020: DoorCloth
+    100022: DoorHandle
+    100024: //RootNode
+    400000: Black
+    400002: Body
+    400004: Dial1
+    400006: Dial2
+    400008: Dial3
+    400010: Dial4
+    400012: Dial5
+    400014: Dials
+    400016: Door
+    400018: DoorBody
+    400020: DoorCloth
+    400022: DoorHandle
+    400024: //RootNode
+    2100000: Basic.001
+    2100002: BasicMetal.001
+    2100004: DialMaterial
+    2100006: transparan.001
+    2300000: Black
+    2300002: Body
+    2300004: Dial1
+    2300006: Dial2
+    2300008: Dial3
+    2300010: Dial4
+    2300012: Dial5
+    2300014: Dials
+    2300016: DoorBody
+    2300018: DoorCloth
+    2300020: DoorHandle
+    3300000: Black
+    3300002: Body
+    3300004: Dial1
+    3300006: Dial2
+    3300008: Dial3
+    3300010: Dial4
+    3300012: Dial5
+    3300014: Dials
+    3300016: DoorBody
+    3300018: DoorCloth
+    3300020: DoorHandle
+    4300000: Body
+    4300002: Dials
+    4300004: Dial2
+    4300006: Dial1
+    4300008: Dial3
+    4300010: Dial4
+    4300012: Dial5
+    4300014: Black
+    4300016: DoorHandle
+    4300018: DoorBody
+    4300020: DoorCloth
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
