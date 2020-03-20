@@ -21,7 +21,10 @@ public class DialInteractionListener : InteractionListener
     {
         if (IsGrabbed)
         {
-            //TODO rotate the dial based on the hand's position
+            var hand = controller.GetHand();
+            var handRenderer = hand.GetComponent<MeshRenderer>();
+            handRenderer.enabled = false;
+            gameObject.transform.Rotate(0, 0, controller.Target.transform.rotation.z);
         }
     }
 
