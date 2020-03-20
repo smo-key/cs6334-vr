@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(Rigidbody))]
-public class FoodInteractionListener : InteractionListener
+public class DialInteractionListener : InteractionListener
 {
     public Material DefaultMaterial;
     public Material SelectedMaterial;

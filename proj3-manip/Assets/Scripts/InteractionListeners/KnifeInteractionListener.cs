@@ -37,7 +37,7 @@ public class KnifeInteractionListener : InteractionListener
         print(collision.gameObject.name);
         if (isChopping && collision.gameObject.name.Contains("Tomato"))
         {
-            FoodInteractionListener foodInteractionListener = collision.gameObject.GetComponent<FoodInteractionListener>();
+            DialInteractionListener foodInteractionListener = collision.gameObject.GetComponent<DialInteractionListener>();
             foodInteractionListener.onChopped();
         }
     }
