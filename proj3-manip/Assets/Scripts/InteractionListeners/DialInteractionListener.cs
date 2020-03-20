@@ -3,7 +3,6 @@ using System.Collections;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(Rigidbody))]
 public class DialInteractionListener : InteractionListener
 {
     public Material DefaultMaterial;
@@ -12,13 +11,11 @@ public class DialInteractionListener : InteractionListener
 
     bool IsGrabbed = false;
     MeshRenderer ObjectRenderer;
-    Rigidbody rb;
     bool isChopped = false;
 
     public void Start()
     {
         ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
-        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     public void onChopped()
@@ -62,7 +59,6 @@ public class DialInteractionListener : InteractionListener
         //make the hand mesh invisible
         IsGrabbed = true;
         handRenderer.enabled = false;
-        rb.isKinematic = true;
     }
 
     public override void OnDrop(InteractionController controller)
@@ -73,6 +69,5 @@ public class DialInteractionListener : InteractionListener
         //remove food item
         IsGrabbed = false;
         handRenderer.enabled = true;
-        rb.isKinematic = false;
     }
 }
