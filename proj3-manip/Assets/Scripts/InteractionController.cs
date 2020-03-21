@@ -39,11 +39,6 @@ public class InteractionController : MonoBehaviour
         }
     }
 
-    float distance3(Vector3 a, Vector3 b)
-    {
-        return Mathf.Sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y) + (b.z - a.z) * (b.z - a.z));
-    }
-
     public GameObject GetHand()
     {
         return GetComponentInChildren<MeshRenderer>().gameObject;
@@ -51,7 +46,7 @@ public class InteractionController : MonoBehaviour
 
     public float DistanceFromObject(GameObject obj)
     {
-        return distance3(obj.transform.position, Target.transform.position);
+        return MathUtil.Distance(obj.transform.position, Target.transform.position);
     }
 
     public void Grab()
@@ -85,8 +80,8 @@ public class InteractionController : MonoBehaviour
             .Where(o => !AllControlledObjects.Contains(o));
 
         //get nearest object
-        var newNearestObject = objectsExcludingControlling.Count() > 0 ? objectsExcludingControlling.Aggregate((curMin, o) => (curMin == null || distance3(o.transform.position, Target.transform.position) <
-            distance3(curMin.transform.position, Target.transform.position) ? o : curMin)) : null;
+        var newNearestObject = objectsExcludingControlling.Count() > 0 ? objectsExcludingControlling.Aggregate((curMin, o) => (curMin == null || MathUtil.Distance(o.transform.position, Target.transform.position) <
+            MathUtil.Distance(curMin.transform.position, Target.transform.position) ? o : curMin)) : null;
 
         //verify that nearest object is within our radius
         if (newNearestObject != null && DistanceFromObject(newNearestObject) >= InteractionRange)

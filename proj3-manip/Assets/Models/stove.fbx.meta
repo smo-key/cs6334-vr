@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1e85c0969445a3044976d928b0b1a375
+guid: 227848aec0dc3a240b8679df17a85378
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -15,7 +15,8 @@ ModelImporter:
     100018: DoorBody
     100020: DoorCloth
     100022: DoorHandle
-    100024: //RootNode
+    100024: Marks
+    100026: //RootNode
     400000: Black
     400002: Body
     400004: Dial1
@@ -28,11 +29,13 @@ ModelImporter:
     400018: DoorBody
     400020: DoorCloth
     400022: DoorHandle
-    400024: //RootNode
+    400024: Marks
+    400026: //RootNode
     2100000: Basic.001
     2100002: BasicMetal.001
     2100004: DialMaterial
     2100006: transparan.001
+    2100008: DialMaterial.001
     2300000: Black
     2300002: Body
     2300004: Dial1
@@ -44,6 +47,7 @@ ModelImporter:
     2300016: DoorBody
     2300018: DoorCloth
     2300020: DoorHandle
+    2300022: Marks
     3300000: Black
     3300002: Body
     3300004: Dial1
@@ -55,6 +59,7 @@ ModelImporter:
     3300016: DoorBody
     3300018: DoorCloth
     3300020: DoorHandle
+    3300022: Marks
     4300000: Body
     4300002: Dials
     4300004: Dial2
@@ -66,6 +71,7 @@ ModelImporter:
     4300016: DoorHandle
     4300018: DoorBody
     4300020: DoorCloth
+    4300022: Marks
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -103,8 +109,8 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1

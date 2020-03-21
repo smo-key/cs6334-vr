@@ -88,6 +88,8 @@ ModelImporter:
     100164: thumb.03.R
     100166: thumb.03.R_end
     100168: thumb.03.R_end_end
+    100170: Left Hand
+    100172: Right Hand
     400000: Armature
     400002: Camera
     400004: Cube.000
@@ -173,10 +175,14 @@ ModelImporter:
     400164: thumb.03.R
     400166: thumb.03.R_end
     400168: thumb.03.R_end_end
+    400170: Left Hand
+    400172: Right Hand
     2000000: Camera
     2100000: Material.004
     4300000: Cube.005
     4300002: Cube.000
+    4300004: Left Hand
+    4300006: Right Hand
     7400000: Point|Hemi|Hemi|00|Hemi|00
     7400002: Point|Point|Point|00|Point|00
     7400004: Hemi|Hemi|Hemi|00|Hemi|00
@@ -190,6 +196,8 @@ ModelImporter:
     10800004: Point
     13700000: Cube.000
     13700002: Cube.005
+    13700004: Left Hand
+    13700006: Right Hand
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
