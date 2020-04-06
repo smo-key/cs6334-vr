@@ -7,21 +7,21 @@ using System.Collections;
 public class FoodInteractionListener : InteractionListener
 {
     public static Color DefaultOutlineColor = Color.white;
-    public static Color SelectedOutlineColor = new Color(255.0f/255.0f, 209.0f/255.0f, 43.0f/255.0f);
-    public static float SelectedOutlineMultiplier = 3.0f;
+    public static Color SelectedOutlineColor = new Color(255.0f/255.0f, 228.0f/255.0f, 0.0f/255.0f);
+    public static float SelectedOutlineMultiplier = 2.0f;
 
     MeshRenderer renderer;
     Rigidbody rb;
     bool isGrabbed = false;
-    bool isChopped = false;
     float defaultOutlineWidth;
+    Vector3 originalRotationOnGrab;
+    int chopCount = 0;
 
     void UpdateMaterial(bool isNearHand)
     {
-        print(isNearHand);
-
         foreach (var material in renderer.materials)
         {
+            material.SetColor("_Tint", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
             material.SetColor("_OutlineColor", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
             material.SetFloat("_OutlineWidth", isNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
         }
@@ -39,9 +39,11 @@ public class FoodInteractionListener : InteractionListener
         UpdateMaterial(false);
     }
 
-    public void onChopped()
+    public void OnChopped()
     {
-        isChopped = true;
+        //TODO increase chop count, update renderer
+        chopCount++;
+        print("CHOPPED!");
     }
 
     public override void OnFrame(InteractionController controller)
@@ -50,8 +52,11 @@ public class FoodInteractionListener : InteractionListener
         if (isGrabbed)
         {
             var hand = controller.GetHand();
-            var handRenderer = hand.GetComponent<MeshRenderer>();
+            var handRenderer = hand.GetComponent<SkinnedMeshRenderer>();
             gameObject.transform.position = controller.Target.transform.position;
+
+            Vector3 newAngles = controller.Target.transform.rotation.eulerAngles - originalRotationOnGrab + controller.RotationBias;
+            gameObject.transform.rotation = Quaternion.Euler(newAngles);
             handRenderer.enabled = false;
         }
     }
@@ -72,7 +77,9 @@ public class FoodInteractionListener : InteractionListener
     public override void OnGrab(InteractionController controller)
     {
         var hand = controller.GetHand();
-        var handRenderer = hand.GetComponent<MeshRenderer>();
+        var handRenderer = hand.GetComponent<SkinnedMeshRenderer>();
+
+        originalRotationOnGrab = controller.Target.transform.rotation.eulerAngles;
 
         //make the hand mesh invisible
         isGrabbed = true;
@@ -85,7 +92,7 @@ public class FoodInteractionListener : InteractionListener
     public override void OnDrop(InteractionController controller)
     {
         var hand = controller.GetHand();
-        var handRenderer = hand.GetComponent<MeshRenderer>();
+        var handRenderer = hand.GetComponent<SkinnedMeshRenderer>();
 
         //remove food item
         isGrabbed = false;

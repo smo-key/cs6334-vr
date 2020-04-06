@@ -90,6 +90,7 @@ ModelImporter:
     100168: thumb.03.R
     100170: thumb.03.R_end
     100172: thumb.03.R_end_end
+    100174: KnifeBlade
     400000: Camera
     400002: Dummy001
     400004: //RootNode
@@ -177,6 +178,7 @@ ModelImporter:
     400168: thumb.03.R
     400170: thumb.03.R_end
     400172: thumb.03.R_end_end
+    400174: KnifeBlade
     2000000: Camera
     2100000: 'Material #26'
     2100002: 'Material #27'
@@ -185,14 +187,17 @@ ModelImporter:
     2300002: BladeBody
     2300004: Cube.000
     2300006: Cube.005
+    2300008: KnifeBlade
     3300000: Object002
     3300002: BladeBody
     3300004: Cube.000
     3300006: Cube.005
+    3300008: KnifeBlade
     4300000: Object002
     4300002: BladeBody
     4300004: Cube.005
     4300006: Cube.000
+    4300008: KnifeBlade
     10800000: Light
     2186277476908879412: ImportLogs
   externalObjects: {}

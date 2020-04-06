@@ -5,12 +5,14 @@ using System.Collections;
 [RequireComponent(typeof(MeshRenderer))]
 public class DialInteractionListener : InteractionListener
 {
-    public Material SelectedMaterial;
-    private Material DefaultMaterial;
+    public static Color DefaultOutlineColor = Color.white;
+    public static Color SelectedOutlineColor = new Color(255.0f / 255.0f, 228.0f / 255.0f, 0.0f / 255.0f);
+    public static float SelectedOutlineMultiplier = 2.0f;
 
-    bool IsGrabbed = false;
-    MeshRenderer ObjectRenderer;
-    private Vector3 StartEulerRotation = Vector3.zero;
+    bool isGrabbed = false;
+    MeshRenderer renderer;
+    Vector3 startEulerRotation = Vector3.zero;
+    float defaultOutlineWidth;
 
     private float ANGLE_ZERO_DEADBAND = -35f;
     private float ANGLE_MAX = 145f;
@@ -18,13 +20,26 @@ public class DialInteractionListener : InteractionListener
 
     public void Start()
     {
-        ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
-        DefaultMaterial = ObjectRenderer.material;
+        renderer = gameObject.GetComponentInChildren<MeshRenderer>();
+        defaultOutlineWidth = renderer.material.GetFloat("_OutlineWidth");
+        UpdateMaterial(false);
+    }
+
+    void UpdateMaterial(bool isNearHand)
+    {
+        foreach (var material in renderer.materials)
+        {
+            material.SetColor("_Tint", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
+            material.SetColor("_OutlineColor", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
+            material.SetFloat("_OutlineWidth", isNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
+        }
+
+        renderer.UpdateGIMaterials();
     }
 
     public override void OnFrame(InteractionController controller)
     {
-        if (IsGrabbed)
+        if (isGrabbed)
         {
             //disable interaction once the hand leaves the region of interest
             var hand = controller.GetHand();
@@ -36,14 +51,14 @@ public class DialInteractionListener : InteractionListener
             }
 
             //hide hand
-            var handRenderer = hand.GetComponent<MeshRenderer>();
+            var handRenderer = hand.GetComponent<SkinnedMeshRenderer>();
             handRenderer.enabled = false;
 
             //rotate the dial as the hand rotates
-            float targetAngle = controller.Target.transform.rotation.eulerAngles.z - StartEulerRotation.z;
+            float targetAngle = controller.Target.transform.rotation.eulerAngles.z - startEulerRotation.z;
             targetAngle *= -1;
             targetAngle = Mathf.DeltaAngle(0f, targetAngle);                            // converts to -180..180
-            float originalAngle = Mathf.DeltaAngle(0f, StartEulerRotation.z);           // converts to -180..180
+            float originalAngle = Mathf.DeltaAngle(0f, startEulerRotation.z);           // converts to -180..180
             float diffAngle = Mathf.DeltaAngle(originalAngle, targetAngle);             // total diff
 
             if (targetAngle > ANGLE_ZERO_DEADBAND && targetAngle < 0)
@@ -68,36 +83,38 @@ public class DialInteractionListener : InteractionListener
         if (controller.ControlledObject) return;
 
         //highlight it
-        ObjectRenderer.material = SelectedMaterial;
+        UpdateMaterial(true);
     }
 
     public override void OnLeaveClosest(InteractionController controller)
     {
         //unhighlight it
-        ObjectRenderer.material = DefaultMaterial;
+        UpdateMaterial(false);
     }
 
     public override void OnGrab(InteractionController controller)
     {
         var hand = controller.GetHand();
-        var handRenderer = hand.GetComponent<MeshRenderer>();
+        var handRenderer = hand.GetComponent<SkinnedMeshRenderer>();
 
         //make the hand mesh invisible
-        IsGrabbed = true;
+        isGrabbed = true;
         handRenderer.enabled = false;
 
         //get initial rotation of the hand
-        StartEulerRotation = controller.Target.transform.rotation.eulerAngles + 
+        startEulerRotation = controller.Target.transform.rotation.eulerAngles + 
             gameObject.transform.rotation.eulerAngles;
+
+        UpdateMaterial(false);
     }
 
     public override void OnDrop(InteractionController controller)
     {
         var hand = controller.GetHand();
-        var handRenderer = hand.GetComponent<MeshRenderer>();
+        var handRenderer = hand.GetComponent<SkinnedMeshRenderer>();
 
         //remove food item
-        IsGrabbed = false;
+        isGrabbed = false;
         handRenderer.enabled = true;
     }
 }

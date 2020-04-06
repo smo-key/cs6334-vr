@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ToonBasic
+  m_Name: c3b2fdf4355b
   m_Shader: {fileID: 4800000, guid: a040595545f47d94ea7c1617a158a6bd, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,25 +20,13 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ToonShade:
-        m_Texture: {fileID: 8900000, guid: b995d4bd9d11078d11005b9844295342, type: 3}
+        m_Texture: {fileID: 2800000, guid: e35e15e16f3e2824498057fad0ca14bf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Glossiness: 0.5
     - _Metallic: 0
-    - _Outline: 0.007018868
-    - _OutlineWidth: 2
-    - _Shininess: 0.7
+    - _OutlineWidth: 0.03
     m_Colors:
-    - _Color: {r: 0.46268654, g: 0.46268654, b: 0.46268654, a: 1}
-    - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
---- !u!1002 &2100001
-EditorExtensionImpl:
-  serializedVersion: 6

@@ -11,6 +11,7 @@ public class InteractionController : MonoBehaviour
     [SerializeField] public GameObject Target;
     [SerializeField] public GameObject[] TriggerButtons;
     [SerializeField] public GameObject EnvironmentRoot;
+    [SerializeField] public Vector3 RotationBias;
     [Range(0, 1f)] public float InteractionRange = 0.25f;
 
     public GameObject ControlledObject { get; private set; } = null;
@@ -41,7 +42,7 @@ public class InteractionController : MonoBehaviour
 
     public GameObject GetHand()
     {
-        return GetComponentInChildren<MeshRenderer>().gameObject;
+        return GetComponentInChildren<SkinnedMeshRenderer>().gameObject;
     }
 
     public float DistanceFromObject(GameObject obj)
@@ -57,7 +58,6 @@ public class InteractionController : MonoBehaviour
         //grab nearest object
         ControlledObject = NearestObject;
         AllControlledObjects.Add(ControlledObject);
-        print(ControlledObject);
         ControlledObject.GetComponent<InteractionListener>().OnGrab(this);
     }
 
