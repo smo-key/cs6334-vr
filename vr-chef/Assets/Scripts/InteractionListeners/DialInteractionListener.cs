@@ -18,10 +18,13 @@ public class DialInteractionListener : InteractionListener
     private float ANGLE_MAX = 145f;
     private float MAX_INTERACTION_DISTANCE = 0.25f;
 
+    public GameObject FireObject;
+
     public void Start()
     {
         renderer = gameObject.GetComponentInChildren<MeshRenderer>();
         defaultOutlineWidth = renderer.material.GetFloat("_OutlineWidth");
+        FireObject.SetActive(false);
         UpdateMaterial(false);
     }
 
@@ -72,6 +75,8 @@ public class DialInteractionListener : InteractionListener
                 if (ANGLE_MAX - targetAngle > targetAngle) targetAngle = 0;
                 else targetAngle = ANGLE_MAX;
             }
+
+            FireObject.SetActive(targetAngle != 0);
 
             gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, targetAngle));
         }

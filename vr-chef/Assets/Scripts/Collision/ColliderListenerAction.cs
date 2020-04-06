@@ -27,7 +27,6 @@ public class ColliderListenerAction : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
-        print("COLLISION START!");
         OnCollisionEnterEvent?.Invoke(collider, this);
     }
 
