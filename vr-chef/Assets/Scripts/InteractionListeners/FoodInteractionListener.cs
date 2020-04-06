@@ -8,6 +8,7 @@ public class FoodInteractionListener : InteractionListener
 {
     public static Color DefaultOutlineColor = Color.white;
     public static Color SelectedOutlineColor = new Color(255.0f/255.0f, 228.0f/255.0f, 0.0f/255.0f);
+    public static Color ChoppedOutlineColor = new Color(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 0.5f);
     public static float SelectedOutlineMultiplier = 2.0f;
 
     MeshRenderer renderer;
@@ -21,9 +22,17 @@ public class FoodInteractionListener : InteractionListener
     {
         foreach (var material in renderer.materials)
         {
-            material.SetColor("_Tint", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
-            material.SetColor("_OutlineColor", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
-            material.SetFloat("_OutlineWidth", isNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
+            if (chopCount > 0)
+            {
+                material.SetColor("_Tint", ChoppedOutlineColor);
+                material.SetColor("_OutlineColor", ChoppedOutlineColor);
+                material.SetFloat("_OutlineWidth", isNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
+            } else
+            {
+                material.SetColor("_Tint", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
+                material.SetColor("_OutlineColor", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
+                material.SetFloat("_OutlineWidth", isNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
+            }
         }
 
         renderer.UpdateGIMaterials();

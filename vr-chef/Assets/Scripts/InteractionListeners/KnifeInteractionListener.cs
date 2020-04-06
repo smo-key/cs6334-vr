@@ -58,7 +58,7 @@ public class KnifeInteractionListener : InteractionListener
     {
         if (!isGrabbed) return;
 
-        print("Collided with " + collider.gameObject.name + " at " + listener.CurrentVelocity.magnitude);
+        //print("Collided with " + collider.gameObject.name + " at " + listener.CurrentVelocity.magnitude);
         if (listener.CurrentVelocity.y >= 0) return;    // ensure that we are cutting down
         if (listener.CurrentVelocity.magnitude < MIN_ENTRANCE_VELOCITY) return;
 
@@ -84,11 +84,12 @@ public class KnifeInteractionListener : InteractionListener
         objectsChopping.Remove(collider.gameObject);
         UpdateColliders();
 
-        print("Exited " + collider.gameObject.name + " at " + listener.CurrentVelocity.magnitude);
+        //print("Exited " + collider.gameObject.name + " at " + listener.CurrentVelocity.magnitude);
         collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
         if (listener.CurrentVelocity.magnitude < MIN_EXIT_VELOCITY) return;
         collider.gameObject.GetComponent<FoodInteractionListener>().OnChopped();
+        audioData.Play(0);
     }
 
     public override void OnFrame(InteractionController controller)
