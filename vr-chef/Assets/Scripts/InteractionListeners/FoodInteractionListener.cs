@@ -6,19 +6,37 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class FoodInteractionListener : InteractionListener
 {
-    public Material DefaultMaterial;
-    public Material SelectedMaterial;
-    public Material ChoppedMaterial;
+    public static Color DefaultOutlineColor = Color.white;
+    public static Color SelectedOutlineColor = new Color(255.0f/255.0f, 209.0f/255.0f, 43.0f/255.0f);
+    public static float SelectedOutlineMultiplier = 3.0f;
 
-    bool IsGrabbed = false;
-    MeshRenderer ObjectRenderer;
+    MeshRenderer renderer;
     Rigidbody rb;
+    bool isGrabbed = false;
     bool isChopped = false;
+    float defaultOutlineWidth;
+
+    void UpdateMaterial(bool isNearHand)
+    {
+        print(isNearHand);
+
+        foreach (var material in renderer.materials)
+        {
+            material.SetColor("_OutlineColor", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
+            material.SetFloat("_OutlineWidth", isNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
+        }
+
+        renderer.UpdateGIMaterials();
+    }
 
     public void Start()
     {
-        ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+        renderer = gameObject.GetComponentInChildren<MeshRenderer>();
         rb = gameObject.GetComponent<Rigidbody>();
+        defaultOutlineWidth = renderer.material.GetFloat("_OutlineWidth");
+
+        //update material
+        UpdateMaterial(false);
     }
 
     public void onChopped()
@@ -29,16 +47,12 @@ public class FoodInteractionListener : InteractionListener
     public override void OnFrame(InteractionController controller)
     {
         //attach food item position to hand mesh's position and rotation every frame if grabbed
-        if (IsGrabbed)
+        if (isGrabbed)
         {
             var hand = controller.GetHand();
             var handRenderer = hand.GetComponent<MeshRenderer>();
             gameObject.transform.position = controller.Target.transform.position;
             handRenderer.enabled = false;
-        }
-        if (isChopped)
-        {
-            ObjectRenderer.material = ChoppedMaterial;
         }
     }
 
@@ -47,14 +61,12 @@ public class FoodInteractionListener : InteractionListener
         //don't do anything if there's an object in the hand
         if (controller.ControlledObject) return;
 
-        //highlight it
-        ObjectRenderer.material = SelectedMaterial;
+        UpdateMaterial(true);
     }
 
     public override void OnLeaveClosest(InteractionController controller)
     {
-        //unhighlight it
-        ObjectRenderer.material = DefaultMaterial;
+        UpdateMaterial(false);
     }
 
     public override void OnGrab(InteractionController controller)
@@ -63,9 +75,11 @@ public class FoodInteractionListener : InteractionListener
         var handRenderer = hand.GetComponent<MeshRenderer>();
 
         //make the hand mesh invisible
-        IsGrabbed = true;
+        isGrabbed = true;
         handRenderer.enabled = false;
         rb.isKinematic = true;
+
+        UpdateMaterial(false);
     }
 
     public override void OnDrop(InteractionController controller)
@@ -74,7 +88,7 @@ public class FoodInteractionListener : InteractionListener
         var handRenderer = hand.GetComponent<MeshRenderer>();
 
         //remove food item
-        IsGrabbed = false;
+        isGrabbed = false;
         handRenderer.enabled = true;
         rb.isKinematic = false;
     }
