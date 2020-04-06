@@ -5578,6 +5578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedMaterial: {fileID: 2100000, guid: 7c1ff27d304bc4ca9b38bbdf197e522e, type: 2}
+  fireToDisable: {fileID: 0}
 --- !u!135 &702128724
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5604,6 +5605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedMaterial: {fileID: 2100000, guid: 7c1ff27d304bc4ca9b38bbdf197e522e, type: 2}
+  fireToDisable: {fileID: 0}
 --- !u!135 &702128726
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5630,6 +5632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedMaterial: {fileID: 2100000, guid: 7c1ff27d304bc4ca9b38bbdf197e522e, type: 2}
+  fireToDisable: {fileID: 0}
 --- !u!135 &702128728
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5656,6 +5659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedMaterial: {fileID: 2100000, guid: 7c1ff27d304bc4ca9b38bbdf197e522e, type: 2}
+  fireToDisable: {fileID: 0}
 --- !u!135 &702128730
 SphereCollider:
   m_ObjectHideFlags: 0

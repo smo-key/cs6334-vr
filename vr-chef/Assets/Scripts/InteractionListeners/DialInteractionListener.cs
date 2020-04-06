@@ -16,6 +16,10 @@ public class DialInteractionListener : InteractionListener
     private float ANGLE_MAX = 145f;
     private float MAX_INTERACTION_DISTANCE = 0.25f;
 
+    public GameObject fireToDisable;
+    public static bool FireDisabled = false;
+  
+
     public void Start()
     {
         ObjectRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
@@ -57,6 +61,12 @@ public class DialInteractionListener : InteractionListener
                 if (ANGLE_MAX - targetAngle > targetAngle) targetAngle = 0;
                 else targetAngle = ANGLE_MAX;
             }
+
+            if (FireDisabled)
+                fireToDisable.SetActive(false);
+            else
+                fireToDisable.SetActive(true);
+
 
             gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, targetAngle));
         }
