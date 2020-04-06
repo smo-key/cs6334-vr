@@ -10,6 +10,7 @@ public class KnifeInteractionListener : InteractionListener
     public Material SelectedMaterial;
     public Material ChoppedMaterial;
 
+
     private Material[] OriginalMaterials;
 
     MeshRenderer ObjectRenderer;
@@ -17,6 +18,7 @@ public class KnifeInteractionListener : InteractionListener
     BoxCollider BoxCollider;
     bool IsGrabbed = false;
     Rigidbody RigidBody;
+    AudioSource audioData;
 
     System.DateTime startTime;
     System.TimeSpan timeSpan;
@@ -31,6 +33,7 @@ public class KnifeInteractionListener : InteractionListener
         OriginalMaterials = gameObject.GetComponent<MeshRenderer>().materials;
         MeshCollider = gameObject.GetComponent<MeshCollider>();
         BoxCollider = gameObject.GetComponent<BoxCollider>();
+        audioData = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -78,6 +81,7 @@ public class KnifeInteractionListener : InteractionListener
                 if (diff <= -0.15)
                 {
                     print("Chopped Down");
+                    audioData.Play(0);
                     IsChopping = true;
                     Material[] materials2 = new Material[ObjectRenderer.materials.Length];
                     for (int i = 0; i < materials2.Length; i++)
