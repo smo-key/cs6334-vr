@@ -10,6 +10,7 @@ public class KnifeInteractionListener : InteractionListener
     static Color SelectedOutlineColor = new Color(255.0f / 255.0f, 228.0f / 255.0f, 0.0f / 255.0f);
     static float SelectedOutlineMultiplier = 3.0f;
     static Vector3 RotationBias = new Vector3(0, 0, 0);
+
     static float MIN_ENTRANCE_VELOCITY = 0.4f;
     static float MIN_EXIT_VELOCITY = 0.4f;
 
@@ -49,8 +50,7 @@ public class KnifeInteractionListener : InteractionListener
     void UpdateColliders()
     {
         DefaultColliders.SetActive(!isGrabbed);
-        HeldBoundaryColliders.SetActive(false);
-        //HeldBoundaryColliders.SetActive(isGrabbed && objectsChopping.Count == 0);
+        HeldBoundaryColliders.SetActive(isGrabbed && objectsChopping.Count == 0);
         ChopCollider.enabled = isGrabbed;
     }
 

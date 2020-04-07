@@ -15,7 +15,6 @@ public class ItemInteractionListener : InteractionListener
     bool isGrabbed = false;
     float defaultOutlineWidth;
     Vector3 originalRotationOnGrab;
-    int chopCount = 0;
 
     void UpdateMaterial(bool isNearHand)
     {
@@ -37,13 +36,6 @@ public class ItemInteractionListener : InteractionListener
 
         //update material
         UpdateMaterial(false);
-    }
-
-    public void OnChopped()
-    {
-        //TODO increase chop count, update renderer
-        chopCount++;
-        print("CHOPPED!");
     }
 
     public override void OnFrame(InteractionController controller)
