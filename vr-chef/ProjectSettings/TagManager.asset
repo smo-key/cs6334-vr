@@ -9,6 +9,7 @@ TagManager:
   - Headset
   - Interactable
   - RecipeIngredient
+  - Pan
   layers:
   - Default
   - TransparentFX
