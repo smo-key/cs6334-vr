@@ -50,13 +50,11 @@ public class PanInteractionListener : InteractionListener
             if (gameObject.transform.position.y < collision.transform.position.y)
             {
                 print(gameObject.name + " is below " + collision.gameObject.name);
-                this.objectAbove = collision.gameObject;
+                this.ingredient = collision.gameObject;
+                RecipeInteractionListener recipeInteraction = this.ingredient.GetComponent<RecipeInteractionListener>();
+                recipeInteraction.changeIngredientColor(50);
             }
-            else
-            {
-                print(collision.gameObject.name + " is below " + gameObject.name);
-                this.objectBelow = collision.gameObject;
-            }
+
         }
 
     }
@@ -65,15 +63,10 @@ public class PanInteractionListener : InteractionListener
     {
         if (collision.gameObject.CompareTag("RecipeIngredient"))
         {
-            if (this.objectBelow == collision.gameObject)
+            if (this.ingredient == collision.gameObject)
             {
-                print(this.objectBelow.name + " is no longer below " + this.gameObject.name);
-                this.objectBelow = null;
-            }
-            else if (this.objectAbove == collision.gameObject)
-            {
-                print(this.objectAbove.name + " is no longer above " + this.gameObject.name);
-                this.objectAbove = null;
+                print(this.ingredient.name + " is no longer above " + this.gameObject.name);
+                this.ingredient = null;
             }
         }
     }

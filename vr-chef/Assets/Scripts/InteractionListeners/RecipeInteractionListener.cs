@@ -41,6 +41,13 @@ public class RecipeInteractionListener : InteractionListener
         renderer.UpdateGIMaterials();
     }
 
+    public void changeIngredientColor(float percent)
+    {
+        Material material = this.GetComponent<MeshRenderer>().material;
+        percent = Mathf.Clamp01(percent);
+        material.color = new Color(material.color.r * (1 - percent), material.color.g * (1 - percent), material.color.b * (1 - percent), material.color.a);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("RecipeIngredient"))
