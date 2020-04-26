@@ -51,7 +51,7 @@ namespace Assets.Scripts.Interaction.Generic
             //attach item position to hand mesh's position and rotation every frame if grabbed
             gameObject.transform.position = controller.Target.transform.position;
 
-            Vector3 newAngles = originalRotationOnGrab - controller.Target.transform.rotation.eulerAngles;
+            Vector3 newAngles = originalRotationOnGrab - controller.Target.transform.rotation.eulerAngles + controller.RotationBias;
             gameObject.transform.rotation = Quaternion.Euler(newAngles);
         }
 

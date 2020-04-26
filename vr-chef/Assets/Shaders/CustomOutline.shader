@@ -8,8 +8,8 @@
 
         _Glossiness ("Smoothness", Range(0, 1)) = 0.5
         _Metallic ("Metallic", Range(0, 1)) = 0
-        [HDR] _OutlineColor ("Outline Color", Color) = (0, 0, 0, 1)
-        _OutlineWidth ("Outline Width", Range(0, 20)) = 0.03
+        [HDR] _OutlineColor ("Outline Color", Color) = (1, 1, 1, 1)
+        _OutlineWidth ("Outline Width", Range(0, 20)) = 2
     }
 
     SubShader 

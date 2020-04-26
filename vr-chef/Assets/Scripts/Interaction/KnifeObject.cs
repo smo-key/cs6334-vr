@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Interaction.Generic;
 using UnityEngine.Experimental.PlayerLoop;
 using System;
+using Assets.Scripts.Collisions;
 
 namespace Assets.Scripts.Interaction
 {

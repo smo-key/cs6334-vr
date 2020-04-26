@@ -8,6 +8,8 @@ TagManager:
   - RightController
   - Headset
   - Interactable
+  - RecipeIngredient
+  - Pan
   layers:
   - Default
   - TransparentFX

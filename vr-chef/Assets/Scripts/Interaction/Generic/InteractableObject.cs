@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System;
 
 namespace Assets.Scripts.Interaction.Generic
 {
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Interaction.Generic
         public virtual void Start()
         {
             ObjectRenderer = gameObject.GetComponentInChildren<Renderer>();
+            if (!ObjectRenderer) throw new Exception("Interactable object does not have a renderer node within itself or any of its children.");
 
             defaultOutlineWidth = ObjectRenderer.material.GetFloat("_OutlineWidth");
             UpdateMaterial(false);
