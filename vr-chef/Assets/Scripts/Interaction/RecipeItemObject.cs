@@ -10,12 +10,9 @@ public class RecipeItemObject : GrabbableObject
     GameObject objectAbove;
     GameObject objectBelow;
 
-    public void ChangeIngredientColor(float percent)
-    {
-        Material material = ObjectRenderer.material;
-        percent = Mathf.Clamp01(percent);
-        material.color = new Color(material.color.r * (1 - percent), material.color.g * (1 - percent), material.color.b * (1 - percent), material.color.a);
-    }
+    public bool startCooking = false;
+    public float timer = 0;
+    public float secondsCooked = 0;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,7 +20,7 @@ public class RecipeItemObject : GrabbableObject
         {
             print("Collision detected in " + this.gameObject.name);
             print("Collided with " + collision.gameObject.name);
-            if(gameObject.transform.position.y < collision.transform.position.y)
+            if (gameObject.transform.position.y < collision.transform.position.y)
             {
                 print(gameObject.name + " is below " + collision.gameObject.name);
                 this.objectAbove = collision.gameObject;
@@ -34,14 +31,14 @@ public class RecipeItemObject : GrabbableObject
                 this.objectBelow = collision.gameObject;
             }
         }
-        
+
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("RecipeIngredient"))
         {
-            if(this.objectBelow == collision.gameObject)
+            if (this.objectBelow == collision.gameObject)
             {
                 print(this.objectBelow.name + " is no longer below " + this.gameObject.name);
                 this.objectBelow = null;
@@ -57,12 +54,58 @@ public class RecipeItemObject : GrabbableObject
     public override void Start()
     {
         base.Start();
-       
+
     }
 
     public override void OnFrame(InteractionController controller)
     {
         base.OnFrame(controller);
+        if (startCooking)
+        {
+            if (timer >= 100)
+            {
+                secondsCooked += 1;
+                timer = 0;
+            }
+            timer += 1;
+            InteractableObject interactableObject = this.GetComponent<InteractableObject>();
+            if (secondsCooked < 3)
+            {
+                interactableObject.MaterialTintOverride = new Color(0, 1, 0, 1);
+            }
+            else if(secondsCooked < 6)
+            {
+                interactableObject.MaterialTintOverride = new Color(0, 0, 1, 1);
+            }
+            else if(secondsCooked < 9)
+            {
+                interactableObject.MaterialTintOverride = new Color(1, 0, 0, 1);
+            }
+            else if (secondsCooked < 12)
+            {
+                interactableObject.MaterialTintOverride = new Color(0, 0, 0, 1);
+                stopCookingIngredient();
+            }
+
+            print("TIMER IS: " + secondsCooked);
+        }
+
+    }
+
+    public void startCookingIngredient()
+    {
+        startCooking = true;
+        timer = 0;
+        //secondsCooked = 0;
+    }
+
+    public void stopCookingIngredient()
+    {
+        startCooking = false;
+        timer = 0;
+        //secondsCooked = 0;
+        //InteractableObject interactableObject = this.GetComponent<InteractableObject>();
+        //interactableObject.MaterialTintOverride = null;
     }
 
     public override void OnGrab(InteractionController controller)
