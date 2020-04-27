@@ -15,9 +15,11 @@ namespace Assets.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
-            print("COLLISION AHPEPEND");
+           
             if (collision.gameObject.CompareTag("RecipeIngredient"))
             {
+                print("COLLISION AHPEPEND");
+                this.GetComponent<InteractableObject>().MaterialTintOverride = Color.red;
                 print("Collision detected in " + this.gameObject.name);
                 print("Collided with " + collision.gameObject.name);
                 if (gameObject.transform.position.y < collision.transform.position.y)
@@ -34,6 +36,7 @@ namespace Assets.Scripts
         {
             if (collision.gameObject.CompareTag("RecipeIngredient"))
             {
+                this.GetComponent<InteractableObject>().MaterialTintOverride = null;
                 if (this.ingredient == collision.gameObject)
                 {
                     print(this.ingredient.name + " is no longer above " + this.gameObject.name);
