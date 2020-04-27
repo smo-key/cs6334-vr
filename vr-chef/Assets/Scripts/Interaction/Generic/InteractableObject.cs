@@ -14,20 +14,34 @@ namespace Assets.Scripts.Interaction.Generic
 
         protected static Color DefaultOutlineColor = Color.white;
         protected static Color SelectedOutlineColor = new Color(255.0f / 255.0f, 228.0f / 255.0f, 0.0f / 255.0f);
+
+        public Color? MaterialTintOverride
+        {
+            get => _materialTintOverride;
+            set {
+                _materialTintOverride = value;
+                UpdateMaterial();
+            }
+        }
+        private Color? _materialTintOverride = null;
+
+        public bool IsNearHand { get; private set; } = false;
+
+
         protected virtual float SelectedOutlineMultiplier => 2.0f;
 
         float defaultOutlineWidth;
 
-        protected void UpdateMaterial(bool isNearHand)
+        protected void UpdateMaterial()
         {
+            Color tint = MaterialTintOverride.HasValue ? MaterialTintOverride.Value : (IsNearHand ? SelectedOutlineColor : DefaultOutlineColor);
+
             foreach (var material in ObjectRenderer.materials)
             {
-                material.SetColor("_Tint", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
-                material.SetColor("_OutlineColor", isNearHand ? SelectedOutlineColor : DefaultOutlineColor);
-                material.SetFloat("_OutlineWidth", isNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
+                material.SetColor("_Tint", tint);
+                material.SetColor("_OutlineColor", tint);
+                material.SetFloat("_OutlineWidth", IsNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
             }
-
-            ObjectRenderer.UpdateGIMaterials();
         }
 
         public virtual void Start()
@@ -36,7 +50,7 @@ namespace Assets.Scripts.Interaction.Generic
             if (!ObjectRenderer) throw new Exception("Interactable object does not have a renderer node within itself or any of its children.");
 
             defaultOutlineWidth = ObjectRenderer.material.GetFloat("_OutlineWidth");
-            UpdateMaterial(false);
+            UpdateMaterial();
         }
 
         public virtual void OnFrame(InteractionController controller)
@@ -49,22 +63,26 @@ namespace Assets.Scripts.Interaction.Generic
             //don't do anything if there's an object in the hand
             if (controller.ControlledObject) return;
 
-            UpdateMaterial(true);
+            IsNearHand = true;
+            UpdateMaterial();
         }    
 
         public virtual void OnLeaveClosest(InteractionController controller)
         {
-            UpdateMaterial(false);
+            IsNearHand = false;
+            UpdateMaterial();
         }
 
         public virtual void OnGrab(InteractionController controller)
         {
-            UpdateMaterial(false);
+            IsNearHand = false;
+            UpdateMaterial();
         }
 
         public virtual void OnDrop(InteractionController controller)
         {
-            UpdateMaterial(false);
+            IsNearHand = false;
+            UpdateMaterial();
         }
     }
 }

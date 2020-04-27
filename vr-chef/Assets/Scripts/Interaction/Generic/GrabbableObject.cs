@@ -20,6 +20,8 @@ namespace Assets.Scripts.Interaction.Generic
         static float GRAB_COLLIDER_DISABLE_TIMEOUT = 0.2f; //seconds
         Dictionary<InteractionController, float> timesDropped = new Dictionary<InteractionController, float>();
 
+        //static Vector3 RotationBias = new Vector3(90f, 0, 0);
+
         public override void Start()
         {
             base.Start();
@@ -48,11 +50,16 @@ namespace Assets.Scripts.Interaction.Generic
 
         public virtual void OnFrameWhenGrabbed(InteractionController controller, GameObject hand)
         {
-            //attach item position to hand mesh's position and rotation every frame if grabbed
+            //bind the object to exactly the hand's position
+            objectRigidbody.MovePosition(controller.Target.transform.position);
+            Vector3 euler = controller.Target.transform.rotation.eulerAngles;
+            objectRigidbody.MoveRotation(Quaternion.Euler(euler));
+
+            /*//attach item position to hand mesh's position and rotation every frame if grabbed
             gameObject.transform.position = controller.Target.transform.position;
 
-            Vector3 newAngles = originalRotationOnGrab - controller.Target.transform.rotation.eulerAngles + controller.RotationBias;
-            gameObject.transform.rotation = Quaternion.Euler(newAngles);
+            Vector3 newAngles = originalRotationOnGrab - controller.Target.transform.rotation.eulerAngles;// + controller.RotationBias;
+            gameObject.transform.rotation = Quaternion.Euler(newAngles);*/
         }
 
         public override void OnEnterClosest(InteractionController controller)
@@ -76,7 +83,7 @@ namespace Assets.Scripts.Interaction.Generic
             handRenderer.enabled = false;
 
             //get original hand rotation
-            originalRotationOnGrab = controller.Target.transform.rotation.eulerAngles + gameObject.transform.rotation.eulerAngles;
+            originalRotationOnGrab = controller.Target.transform.rotation.eulerAngles; //+ gameObject.transform.rotation.eulerAngles;
 
             //freeze rotation
             objectRigidbody.freezeRotation = true;
