@@ -5,7 +5,7 @@ using Assets.Scripts;
 
 namespace Assets.Scripts
 {
-    public class PanInteractionListener : GrabbableObject
+    public class PanObject : GrabbableObject
     {
         protected override float SelectedOutlineMultiplier => 2.0f;
 
