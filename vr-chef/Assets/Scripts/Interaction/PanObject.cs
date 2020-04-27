@@ -15,6 +15,7 @@ namespace Assets.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
+            print("COLLISION AHPEPEND");
             if (collision.gameObject.CompareTag("RecipeIngredient"))
             {
                 print("Collision detected in " + this.gameObject.name);
