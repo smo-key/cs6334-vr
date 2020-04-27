@@ -57,6 +57,7 @@ public class RecipeItemObject : GrabbableObject
     public override void Start()
     {
         base.Start();
+       
     }
 
     public override void OnFrame(InteractionController controller)
