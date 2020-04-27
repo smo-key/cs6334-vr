@@ -2,13 +2,16 @@
 using System.Collections;
 using Assets.Scripts.Interaction.Generic;
 using Assets.Scripts;
+using System.Collections.Generic;
 
 public class RecipeItemObject : GrabbableObject
 {
     protected override float SelectedOutlineMultiplier => 2.0f;
 
-    GameObject objectAbove;
-    GameObject objectBelow;
+    public GameObject objectAbove;
+    public GameObject objectBelow;
+
+    public GameObject optionalPlate;
 
     public bool startCooking = false;
     public float timer = 0;
@@ -20,6 +23,8 @@ public class RecipeItemObject : GrabbableObject
         {
             print("Collision detected in " + this.gameObject.name);
             print("Collided with " + collision.gameObject.name);
+            print(this.gameObject.transform.position);
+            print(collision.collider.transform.position);
             if (gameObject.transform.position.y < collision.transform.position.y)
             {
                 print(gameObject.name + " is below " + collision.gameObject.name);
@@ -29,9 +34,43 @@ public class RecipeItemObject : GrabbableObject
             {
                 print(collision.gameObject.name + " is below " + gameObject.name);
                 this.objectBelow = collision.gameObject;
+                if(gameObject.name == "patty")
+                {
+                    // Validate burger stack
+                    List<string> recipe = new List<string>();
+                    recipe.Add("bottomBun");
+                    recipe.Add("patty");
+                    //recipe.Add("slicedOnion");
+                    //recipe.Add("slicedTomato");
+                    //recipe.Add("topBun");
+                    GameObject plate = validateBurger(this.gameObject, this.optionalPlate, 1, recipe);
+                    if (plate != null)
+                    {
+                        InteractableObject interactableObject = plate.GetComponent<InteractableObject>();
+                        interactableObject.MaterialTintOverride = Color.green;
+                    }
+                }
             }
         }
 
+    }
+
+    private GameObject validateBurger(GameObject recipeItem, GameObject plate, int index, List<string> recipe)
+    {
+        if (index < 0)
+        {
+            return plate;
+        }
+        if (recipeItem == null)
+        {
+            return null;
+        }
+        if (recipe[index] != recipeItem.name)
+        {
+            return null;
+        }
+        RecipeItemObject recipeInteraction = recipeItem.GetComponent<RecipeItemObject>();
+        return validateBurger(recipeInteraction.objectBelow, recipeInteraction.optionalPlate, index - 1, recipe);
     }
 
     private void OnCollisionExit(Collision collision)
