@@ -5750,7 +5750,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: ae1d2aa580870ed4489223e5ee511a7e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 70b20f8117c4ece469fd578c6b998f95, type: 2}
+      objectReference: {fileID: 2100000, guid: 62328198e3dc51e43a3e90adfebd4e26, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae1d2aa580870ed4489223e5ee511a7e, type: 3}
 --- !u!1001 &619923000
@@ -9003,6 +9003,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64771b668fd84c62b21033f6f88be72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectAbove: {fileID: 0}
+  objectBelow: {fileID: 0}
+  optionalPlate: {fileID: 0}
+  startCooking: 0
+  timer: 0
+  secondsCooked: 0
 --- !u!54 &892695172
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11156,6 +11162,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64771b668fd84c62b21033f6f88be72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectAbove: {fileID: 0}
+  objectBelow: {fileID: 0}
+  optionalPlate: {fileID: 0}
+  startCooking: 0
+  timer: 0
+  secondsCooked: 0
 --- !u!54 &1240844488
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12867,6 +12879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dd6265385114034b98e83d7670ed9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialObject: {fileID: 0}
 --- !u!1 &1493917259
 GameObject:
   m_ObjectHideFlags: 0
@@ -17271,6 +17284,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64771b668fd84c62b21033f6f88be72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectAbove: {fileID: 0}
+  objectBelow: {fileID: 0}
+  optionalPlate: {fileID: 0}
+  startCooking: 0
+  timer: 0
+  secondsCooked: 0
 --- !u!1 &836524187128032930
 GameObject:
   m_ObjectHideFlags: 0
@@ -17333,6 +17352,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64771b668fd84c62b21033f6f88be72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectAbove: {fileID: 0}
+  objectBelow: {fileID: 0}
+  optionalPlate: {fileID: 0}
+  startCooking: 0
+  timer: 0
+  secondsCooked: 0
 --- !u!1 &836524187128032934
 GameObject:
   m_ObjectHideFlags: 0
@@ -17395,6 +17420,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64771b668fd84c62b21033f6f88be72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectAbove: {fileID: 0}
+  objectBelow: {fileID: 0}
+  optionalPlate: {fileID: 0}
+  startCooking: 0
+  timer: 0
+  secondsCooked: 0
 --- !u!65 &836524187128032938
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17457,6 +17488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64771b668fd84c62b21033f6f88be72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectAbove: {fileID: 0}
+  objectBelow: {fileID: 0}
+  optionalPlate: {fileID: 0}
+  startCooking: 0
+  timer: 0
+  secondsCooked: 0
 --- !u!54 &836524187128032944
 Rigidbody:
   m_ObjectHideFlags: 0
