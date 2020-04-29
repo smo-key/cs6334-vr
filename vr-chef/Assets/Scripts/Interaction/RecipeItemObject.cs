@@ -35,6 +35,7 @@ public class RecipeItemObject : GrabbableObject
             {
                 print(collision.gameObject.name + " is below " + gameObject.name);
                 this.objectBelow = collision.gameObject;
+
                 if(gameObject.name == "patty")
                 {
                     // Validate burger stack
@@ -44,9 +45,11 @@ public class RecipeItemObject : GrabbableObject
                     //recipe.Add("slicedOnion");
                     //recipe.Add("slicedTomato");
                     //recipe.Add("topBun");
+                    print("Validating burger");
                     GameObject plate = validateBurger(this.gameObject, this.optionalPlate, 1, recipe);
                     if (plate != null)
                     {
+                        print("PLate is not null");
                         InteractableObject interactableObject = plate.GetComponent<InteractableObject>();
                         interactableObject.MaterialTintOverride = Color.green;
                     }
@@ -70,6 +73,7 @@ public class RecipeItemObject : GrabbableObject
         {
             return null;
         }
+        print("Item on stack is " + recipeItem.name);
         RecipeItemObject recipeInteraction = recipeItem.GetComponent<RecipeItemObject>();
         return validateBurger(recipeInteraction.objectBelow, recipeInteraction.optionalPlate, index - 1, recipe);
     }

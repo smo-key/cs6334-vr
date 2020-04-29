@@ -21,8 +21,14 @@ namespace Assets.Scripts
                 if (gameObject.transform.position.y < collision.transform.position.y)
                 {
                     print(gameObject.name + " is below " + collision.gameObject.name);
+
                     this.ingredient = collision.gameObject;
+                
+
                     RecipeItemObject recipeInteraction = this.ingredient.GetComponent<RecipeItemObject>();
+                    recipeInteraction.optionalPlate = this.gameObject;
+
+
                     if(this.ingredient.name != "bottomBun")
                     {
                         InteractableObject interactableObject = this.GetComponent<InteractableObject>();
