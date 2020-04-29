@@ -36,12 +36,12 @@ namespace Assets.Scripts.Interaction.Generic
         {
             Color tint = MaterialTintOverride.HasValue ? MaterialTintOverride.Value : (IsNearHand ? SelectedOutlineColor : DefaultOutlineColor);
 
-            foreach (var material in ObjectRenderer.materials)
+            /*foreach (var material in ObjectRenderer.materials)
             {
                 material.SetColor("_Tint", tint);
                 material.SetColor("_OutlineColor", tint);
                 material.SetFloat("_OutlineWidth", IsNearHand ? defaultOutlineWidth * SelectedOutlineMultiplier : defaultOutlineWidth);
-            }
+            }*/
         }
 
         public virtual void Start()
