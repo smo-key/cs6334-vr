@@ -92,8 +92,9 @@ namespace Assets.Scripts.Interaction.Generic
             objectRigidbody.freezeRotation = true;
             gameObject.transform.position = controller.Target.transform.position;
 
-            //disable collider
-            if (objectCollider) objectCollider.enabled = false;
+            //disable colliders
+            //if (objectCollider) objectCollider.enabled = false;
+            ToggleHandCollisions(controller, false);
 
             //create joint
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
@@ -127,7 +128,7 @@ namespace Assets.Scripts.Interaction.Generic
             Destroy(gameObject.GetComponent<FixedJoint>());
 
             //enable collider
-            if (objectCollider) objectCollider.enabled = true;
+            //if (objectCollider) objectCollider.enabled = true;
 
             //apply force equal to controller velocity
             objectRigidbody.AddForceAtPosition(controller.Velocity * 50f, controller.Position, ForceMode.Force);

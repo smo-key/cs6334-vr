@@ -21,8 +21,8 @@ public class RecipeItemObject : GrabbableObject
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.CompareTag("RecipeIngredient"))
+        var ingredient = collision.gameObject.GetComponent<RecipeItemObject>();
+        if (ingredient)
         {
             print(this.gameObject.name + " collided with " + collision.gameObject.name);
             if (objectAbove == null)
@@ -54,14 +54,14 @@ public class RecipeItemObject : GrabbableObject
                 print(collision.gameObject.name + " is below " + gameObject.name);
                 this.objectBelow = collision.gameObject;
 
-                if(gameObject.name.Contains("slicedOnion"))
+                if(gameObject.name.Contains("cheese"))
                 {
                     // Validate burger stack
                     List<string> recipe = new List<string>();
                     recipe.Add("bottomBun");
                     recipe.Add("patty");
                     recipe.Add("cheese");
-                    recipe.Add("slicedOnion");
+                    //recipe.Add("slicedOnion");
                     //recipe.Add("slicedTomato");
                     //recipe.Add("topBun");
                     print("Validating burger");
@@ -72,6 +72,13 @@ public class RecipeItemObject : GrabbableObject
                         print("PLate is not null");
                         InteractableObject interactableObject = plate.GetComponent<InteractableObject>();
                         interactableObject.MaterialTintOverride = Color.green;
+
+                        //run success animation
+                        var effect = GameObject.Find("FinishedEffect");
+                        var newEffect = GameObject.Instantiate(effect);
+                        newEffect.transform.position = plate.transform.position;
+                        newEffect.SetActive(true);
+                        newEffect.GetComponent<ParticleSystem>().Play();
                     }
                 }
             }
@@ -101,7 +108,8 @@ public class RecipeItemObject : GrabbableObject
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("RecipeIngredient"))
+        var ingredient = collision.gameObject.GetComponent<RecipeItemObject>();
+        if (ingredient)
         {
             print(gameObject.name + " exiting from " + collision.gameObject.name);
             this.objectAbove = null;
