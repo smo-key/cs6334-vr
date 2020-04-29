@@ -8,8 +8,7 @@ namespace Assets.Scripts.Interaction
     {
         protected override float SelectedOutlineMultiplier => 2.0f;
 
-        float? lastChopEndTime = null;
-        static float CHOP_KINEMATICS_DISABLE_TIMEOUT = 0.2f; //seconds
+        public GameObject SliceReferenceObject;
 
         public override void Start()
         {
@@ -20,19 +19,19 @@ namespace Assets.Scripts.Interaction
         {
             //make item directly kinematic to prevent movement
             objectRigidbody.isKinematic = true;
-            lastChopEndTime = null;
         }
 
         public void OnEndChop()
         {
-            //delay releasing kinematics
-            lastChopEndTime = Time.time;
+            objectRigidbody.isKinematic = false;
         }
 
         public void OnChopped()
         {
             //TODO increase chop count, update renderer
             print("CHOPPED!");
+
+
         }
 
         public override void OnFrame(InteractionController controller)

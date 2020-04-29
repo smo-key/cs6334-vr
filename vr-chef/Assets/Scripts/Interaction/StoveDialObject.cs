@@ -12,7 +12,7 @@ namespace Assets.Scripts.Interaction
         private float ANGLE_MAX = 145f;
         private float MAX_INTERACTION_DISTANCE = 0.25f;
 
-        Vector3 startEulerRotation = Vector3.zero;
+        float startEulerRotation = 0;
 
         public GameObject FireObject;
 
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Interaction
             handRenderer.enabled = false;
 
             //rotate the dial as the hand rotates
-            float targetAngle = controller.Target.transform.rotation.eulerAngles.z - startEulerRotation.z;
+            float targetAngle = controller.Target.transform.rotation.eulerAngles.z - startEulerRotation;
             targetAngle *= -1;
             targetAngle = Mathf.DeltaAngle(0f, targetAngle); // converts to -180..180
 
@@ -55,8 +55,9 @@ namespace Assets.Scripts.Interaction
             }
 
             FireObject.SetActive(targetAngle != 0);
-
-            gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, targetAngle));
+            Vector3 rot = new Vector3(gameObject.transform.localRotation.x, gameObject.transform.localRotation.y, gameObject.transform.localRotation.z);
+            rot.z = targetAngle;
+            gameObject.transform.localRotation = Quaternion.Euler(rot);
         }
 
         public override void OnGrab(InteractionController controller)
@@ -64,8 +65,8 @@ namespace Assets.Scripts.Interaction
             base.OnGrab(controller);
 
             //get initial rotation of the hand
-            startEulerRotation = controller.Target.transform.rotation.eulerAngles +
-                gameObject.transform.rotation.eulerAngles;
+            startEulerRotation = controller.Target.transform.rotation.eulerAngles.z +
+                gameObject.transform.localRotation.eulerAngles.z;
         }
 
         public override void OnDrop(InteractionController controller)
