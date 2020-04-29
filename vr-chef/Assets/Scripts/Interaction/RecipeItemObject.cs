@@ -19,20 +19,34 @@ public class RecipeItemObject : GrabbableObject
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("RecipeIngredient"))
         {
-            print("Collision detected in " + this.gameObject.name);
-            print("Collided with " + collision.gameObject.name);
-            print(this.gameObject.transform.position);
-            print(collision.collider.transform.position);
+            Vector3 direction = collision.transform.position - transform.position;
+            if (Vector3.Dot(transform.forward, direction) > 0)
+            {
+                print(gameObject.name +  " Back");
+            }
+            if (Vector3.Dot(transform.forward, direction) < 0)
+            {
+                print(gameObject.name + "Front");
+            }
+            if (Vector3.Dot(transform.forward, direction) == 0)
+            {
+                print(gameObject.name + "Side");
+            }
+            //print("Collision detected in " + this.gameObject.name);
+            //print("Collided with " + collision.gameObject.name);
+            //print(this.gameObject.transform.position);
+            //print(collision.gameObject.transform.position);
             if (gameObject.transform.position.y < collision.transform.position.y)
             {
-                print(gameObject.name + " is below " + collision.gameObject.name);
+                //print(gameObject.name + " is below " + collision.gameObject.name);
                 this.objectAbove = collision.gameObject;
             }
             else
             {
-                print(collision.gameObject.name + " is below " + gameObject.name);
+                //print(collision.gameObject.name + " is below " + gameObject.name);
                 this.objectBelow = collision.gameObject;
                 if(gameObject.name == "patty")
                 {
@@ -79,12 +93,12 @@ public class RecipeItemObject : GrabbableObject
         {
             if (this.objectBelow == collision.gameObject)
             {
-                print(this.objectBelow.name + " is no longer below " + this.gameObject.name);
+                //print(this.objectBelow.name + " is no longer below " + this.gameObject.name);
                 this.objectBelow = null;
             }
             else if (this.objectAbove == collision.gameObject)
             {
-                print(this.objectAbove.name + " is no longer above " + this.gameObject.name);
+                //print(this.objectAbove.name + " is no longer above " + this.gameObject.name);
                 this.objectAbove = null;
             }
         }
@@ -128,6 +142,7 @@ public class RecipeItemObject : GrabbableObject
 
             print("TIMER IS: " + secondsCooked);
         }
+        print(gameObject.name + " Position " + gameObject.transform.position.y);
 
     }
 
