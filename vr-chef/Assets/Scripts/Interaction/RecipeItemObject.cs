@@ -16,6 +16,7 @@ public class RecipeItemObject : GrabbableObject
     public bool startCooking = false;
     public float timer = 0;
     public float secondsCooked = 0;
+    Renderer rend;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -98,36 +99,40 @@ public class RecipeItemObject : GrabbableObject
     public override void Start()
     {
         base.Start();
+        if (name == "patty")
+        {
+            this.rend = GetComponent<Renderer>();
+            if (rend != null)
+            {
+                this.rend.material = Resources.Load("Materials/PattyRaw") as Material;
+            }
+        }
 
     }
 
     public override void OnFrame(InteractionController controller)
     {
         base.OnFrame(controller);
-        if (startCooking)
+        if (startCooking && name == "patty")
         {
+            //Resources.Load("Materials/PattyRaw");
             if (timer >= 100)
             {
                 secondsCooked += 1;
                 timer = 0;
             }
             timer += 1;
-            InteractableObject interactableObject = this.GetComponent<InteractableObject>();
-            if (secondsCooked < 3)
+            if(secondsCooked < 5)
             {
-                interactableObject.MaterialTintOverride = new Color(0, 1, 0, 1);
-            }
-            else if(secondsCooked < 6)
-            {
-                interactableObject.MaterialTintOverride = new Color(0, 0, 1, 1);
+                this.rend.material = Resources.Load("Materials/PattyRaw") as Material;
             }
             else if(secondsCooked < 9)
             {
-                interactableObject.MaterialTintOverride = new Color(1, 0, 0, 1);
+                this.rend.material = Resources.Load("Materials/PattyCooked") as Material;
             }
             else if (secondsCooked < 12)
             {
-                interactableObject.MaterialTintOverride = new Color(0, 0, 0, 1);
+                this.rend.material = Resources.Load("Materials/PattyOvercooked") as Material;
                 stopCookingIngredient();
             }
 
