@@ -17,36 +17,56 @@ public class RecipeItemObject : GrabbableObject
     public float timer = 0;
     public float secondsCooked = 0;
 
+    Material currentMaterial;
+
     private void OnCollisionEnter(Collision collision)
     {
 
         if (collision.gameObject.CompareTag("RecipeIngredient"))
         {
-            print("Collision detected in " + this.gameObject.name);
-            print("Collided with " + collision.gameObject.name);
-            print(this.gameObject.transform.position);
-            print(collision.gameObject.transform.position);
-            if (gameObject.transform.position.y < collision.transform.position.y)
+            print(this.gameObject.name + " collided with " + collision.gameObject.name);
+            if (objectAbove == null)
+            {
+                print("No object above");
+            }
+            else
+            {
+                print("above " + gameObject.name + " is " + objectAbove.name);
+            }
+            if (objectBelow == null)
+            {
+                print("No object below");
+            }
+            else
+            {
+                print("below " + gameObject.name + " is " + objectBelow.name);
+            }
+
+            //print(this.gameObject.transform.position);
+            //print(collision.gameObject.transform.position);
+            if (objectAbove == null && gameObject.transform.position.y < collision.transform.position.y)
             {
                 print(gameObject.name + " is below " + collision.gameObject.name);
                 this.objectAbove = collision.gameObject;
             }
-            else
+            else if(objectBelow == null)
             {
                 print(collision.gameObject.name + " is below " + gameObject.name);
                 this.objectBelow = collision.gameObject;
 
-                if(gameObject.name == "patty")
+                if(gameObject.name.Contains("slicedOnion"))
                 {
                     // Validate burger stack
                     List<string> recipe = new List<string>();
                     recipe.Add("bottomBun");
                     recipe.Add("patty");
-                    //recipe.Add("slicedOnion");
+                    recipe.Add("cheese");
+                    recipe.Add("slicedOnion");
                     //recipe.Add("slicedTomato");
                     //recipe.Add("topBun");
                     print("Validating burger");
-                    GameObject plate = validateBurger(this.gameObject, this.optionalPlate, 1, recipe);
+                
+                    GameObject plate = validateBurger(this.gameObject, this.optionalPlate, recipe.Count-1, recipe);
                     if (plate != null)
                     {
                         print("PLate is not null");
@@ -69,11 +89,12 @@ public class RecipeItemObject : GrabbableObject
         {
             return null;
         }
-        if (recipe[index] != recipeItem.name)
+        print("Item on stack is " + recipeItem.name);
+        if (!recipeItem.name.Contains(recipe[index]))
         {
             return null;
         }
-        print("Item on stack is " + recipeItem.name);
+
         RecipeItemObject recipeInteraction = recipeItem.GetComponent<RecipeItemObject>();
         return validateBurger(recipeInteraction.objectBelow, recipeInteraction.optionalPlate, index - 1, recipe);
     }
@@ -82,32 +103,29 @@ public class RecipeItemObject : GrabbableObject
     {
         if (collision.gameObject.CompareTag("RecipeIngredient"))
         {
-            if (this.objectBelow == collision.gameObject)
-            {
-                print(this.objectBelow.name + " is no longer below " + this.gameObject.name);
-                this.objectBelow = null;
-            }
-            else if (this.objectAbove == collision.gameObject)
-            {
-                print(this.objectAbove.name + " is no longer above " + this.gameObject.name);
-                this.objectAbove = null;
-            }
+            print(gameObject.name + " exiting from " + collision.gameObject.name);
+            this.objectAbove = null;
+            this.objectBelow = null;
         }
     }
 
     public override void Start()
     {
         base.Start();
-        if (name == "patty")
+        if (name.Contains("patty"))
         {
             ObjectRenderer.material = Resources.Load("Materials/PattyRaw") as Material;
+            currentMaterial = Resources.Load("Materials/PattyRaw") as Material;
         }
+        Vector3 scale = transform.localScale;
+        float scaleF = 1.5f;
+        transform.localScale = new Vector3(scale.x * scaleF, scale.y * scaleF, scale.z * scaleF);
     }
 
     public override void OnFrame(InteractionController controller)
     {
         base.OnFrame(controller);
-        if (startCooking && name == "patty")
+        if (startCooking && name.Contains("patty"))
         {
             if (timer >= 100)
             {
@@ -118,16 +136,23 @@ public class RecipeItemObject : GrabbableObject
             if(secondsCooked < 5)
             {
                 ObjectRenderer.material = Resources.Load("Materials/PattyRaw") as Material;
+                currentMaterial = Resources.Load("Materials/PattyRaw") as Material; 
             }
             else if(secondsCooked < 9)
             {
                 ObjectRenderer.material = Resources.Load("Materials/PattyCooked") as Material;
+                currentMaterial = Resources.Load("Materials/PattyCooked") as Material;
             }
             else if (secondsCooked < 12)
             {
                 ObjectRenderer.material = Resources.Load("Materials/PattyOvercooked") as Material;
+                currentMaterial = Resources.Load("Materials/PattyOvercooked") as Material;
                 stopCookingIngredient();
             }
+        }
+        if (currentMaterial != null)
+        {
+            ObjectRenderer.material = currentMaterial;
         }
     }
 

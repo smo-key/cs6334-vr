@@ -29,12 +29,12 @@ namespace Assets.Scripts
                     recipeInteraction.optionalPlate = this.gameObject;
 
 
-                    if(this.ingredient.name != "bottomBun")
+                    if(!this.ingredient.name.Contains("bottomBun"))
                     {
                         InteractableObject interactableObject = this.GetComponent<InteractableObject>();
                         interactableObject.MaterialTintOverride = Color.red;
                     }
-                    else if (this.ingredient.name == "bottomBun")
+                    else if (this.ingredient.name.Contains("bottomBun"))
                     {
    
                             InteractableObject interactableObject = this.GetComponent<InteractableObject>();
@@ -66,17 +66,16 @@ namespace Assets.Scripts
 
         private void OnCollisionExit(Collision collision)
         {
-            if (this.ingredient != null && collision.gameObject.CompareTag("RecipeIngredient"))
+            if (this.ingredient != null && collision.gameObject.CompareTag("RecipeIngredient") && collision.gameObject.name.Contains("bottomBun"))
             {
-                if (this.ingredient == collision.gameObject)
-                {
+            
                     print(this.ingredient.name + " is no longer above " + this.gameObject.name);
-                    
+                   
                     InteractableObject interactableObject = this.GetComponent<InteractableObject>();
                     interactableObject.MaterialTintOverride = null;
                     this.ingredient = null;
                     
-                }
+                
             }
         }
     }
