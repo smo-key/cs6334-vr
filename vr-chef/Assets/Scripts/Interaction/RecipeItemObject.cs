@@ -16,7 +16,6 @@ public class RecipeItemObject : GrabbableObject
     public bool startCooking = false;
     public float timer = 0;
     public float secondsCooked = 0;
-    Renderer rend;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -101,13 +100,8 @@ public class RecipeItemObject : GrabbableObject
         base.Start();
         if (name == "patty")
         {
-            this.rend = GetComponent<Renderer>();
-            if (rend != null)
-            {
-                this.rend.material = Resources.Load("Materials/PattyRaw") as Material;
-            }
+            ObjectRenderer.material = Resources.Load("Materials/PattyRaw") as Material;
         }
-
     }
 
     public override void OnFrame(InteractionController controller)
@@ -115,7 +109,6 @@ public class RecipeItemObject : GrabbableObject
         base.OnFrame(controller);
         if (startCooking && name == "patty")
         {
-            //Resources.Load("Materials/PattyRaw");
             if (timer >= 100)
             {
                 secondsCooked += 1;
@@ -124,22 +117,18 @@ public class RecipeItemObject : GrabbableObject
             timer += 1;
             if(secondsCooked < 5)
             {
-                this.rend.material = Resources.Load("Materials/PattyRaw") as Material;
+                ObjectRenderer.material = Resources.Load("Materials/PattyRaw") as Material;
             }
             else if(secondsCooked < 9)
             {
-                this.rend.material = Resources.Load("Materials/PattyCooked") as Material;
+                ObjectRenderer.material = Resources.Load("Materials/PattyCooked") as Material;
             }
             else if (secondsCooked < 12)
             {
-                this.rend.material = Resources.Load("Materials/PattyOvercooked") as Material;
+                ObjectRenderer.material = Resources.Load("Materials/PattyOvercooked") as Material;
                 stopCookingIngredient();
             }
-
-            print("TIMER IS: " + secondsCooked);
         }
-        //print(gameObject.name + " Position " + gameObject.transform.position.y);
-
     }
 
     public void startCookingIngredient()
