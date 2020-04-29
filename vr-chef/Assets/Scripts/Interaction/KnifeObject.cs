@@ -70,7 +70,7 @@ namespace Assets.Scripts.Interaction
             UpdateColliders();
 
             //inform food item that chopping has begun
-            foodListener.OnStartChop();
+            foodListener.OnStartChop(this);
         }
 
         public void OnEdgeCollisionFrame(Collider collider, ColliderListenerAction listener)
@@ -87,13 +87,13 @@ namespace Assets.Scripts.Interaction
 
             //inform food item that chopping has ended
             var foodListener = collider.gameObject.GetComponent<ChoppableFoodObject>();
-            foodListener.OnEndChop();
+            foodListener.OnEndChop(this);
 
             //check chop velocity
             if (listener.CurrentVelocity.magnitude < MIN_EXIT_VELOCITY) return;
 
             //send chopped event
-            foodListener.OnChopped();
+            foodListener.OnChopped(this);
 
             //play chop audio
             audioData.Play(0);
