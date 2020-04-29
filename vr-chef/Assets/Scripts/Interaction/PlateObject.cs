@@ -28,25 +28,12 @@ namespace Assets.Scripts
                         InteractableObject interactableObject = this.GetComponent<InteractableObject>();
                         interactableObject.MaterialTintOverride = Color.red;
                     }
-                    else
+                    else if (this.ingredient.name == "bottomBun")
                     {
-                        // Validate burger stack
-                        List<string> recipe = new List<string>();
-                        recipe.Add("bottomBun");
-                        recipe.Add("patty");
-                        //recipe.Add("slicedOnion");
-                        //recipe.Add("slicedTomato");
-                        //recipe.Add("topBun");
-                        if(validateBurger(this.ingredient, 0, recipe))
-                        {
-                            InteractableObject interactableObject = this.GetComponent<InteractableObject>();
-                            interactableObject.MaterialTintOverride = Color.green;
-                        }
-                        else
-                        {
+   
                             InteractableObject interactableObject = this.GetComponent<InteractableObject>();
                             interactableObject.MaterialTintOverride = Color.blue;
-                        }
+                        
                     }
 
                 }
