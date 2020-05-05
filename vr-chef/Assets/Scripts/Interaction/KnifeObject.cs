@@ -12,7 +12,7 @@ namespace Assets.Scripts.Interaction
     {
         protected override float SelectedOutlineMultiplier => 3.0f;
         
-        static Vector3 RotationBias = new Vector3(15f, 0, 0);
+        static Vector3 RotationBias = new Vector3(90f, -90f, 0f);
         static float MIN_ENTRANCE_VELOCITY = 0.4f;
         static float MIN_EXIT_VELOCITY = 0.4f;
 
@@ -43,8 +43,14 @@ namespace Assets.Scripts.Interaction
         {
             //bind the knife to exactly the hand's position, plus a slight offset
             objectRigidbody.MovePosition(controller.Target.transform.position);
-            Vector3 euler = controller.Target.transform.rotation.eulerAngles + RotationBias;
-            objectRigidbody.MoveRotation(Quaternion.Euler(euler));
+
+            Quaternion rot = controller.Target.transform.rotation;
+            Quaternion around = Quaternion.Euler(RotationBias);
+            rot *= around;
+            objectRigidbody.MoveRotation(rot);
+            
+            //Vector3 euler = controller.Target.transform.rotation.eulerAngles + RotationBias;
+            //objectRigidbody.MoveRotation(Quaternion.Euler(euler));
         }
 
         public void OnEdgeCollisionEnter(Collider collider, ColliderListenerAction listener)
@@ -64,7 +70,7 @@ namespace Assets.Scripts.Interaction
             UpdateColliders();
 
             //inform food item that chopping has begun
-            foodListener.OnStartChop();
+            foodListener.OnStartChop(this);
         }
 
         public void OnEdgeCollisionFrame(Collider collider, ColliderListenerAction listener)
@@ -81,13 +87,13 @@ namespace Assets.Scripts.Interaction
 
             //inform food item that chopping has ended
             var foodListener = collider.gameObject.GetComponent<ChoppableFoodObject>();
-            foodListener.OnEndChop();
+            foodListener.OnEndChop(this);
 
             //check chop velocity
             if (listener.CurrentVelocity.magnitude < MIN_EXIT_VELOCITY) return;
 
             //send chopped event
-            foodListener.OnChopped();
+            foodListener.OnChopped(this);
 
             //play chop audio
             audioData.Play(0);

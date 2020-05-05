@@ -13,9 +13,12 @@ namespace Assets.Scripts.Interaction.Generic
     [RequireComponent(typeof(Rigidbody))]
     public class GrabbableObject : InteractableObject
     {
+        static Vector3 RotationBias = new Vector3(90f, -90f, 0f);
+
         protected Rigidbody objectRigidbody;
+        protected Collider objectCollider;
         protected bool isGrabbed = false;
-        protected Vector3 originalRotationOnGrab;
+        protected Quaternion originalRotationOnGrab;
 
         static float GRAB_COLLIDER_DISABLE_TIMEOUT = 0.2f; //seconds
         Dictionary<InteractionController, float> timesDropped = new Dictionary<InteractionController, float>();
@@ -28,6 +31,9 @@ namespace Assets.Scripts.Interaction.Generic
 
             //get rigidbody
             objectRigidbody = gameObject.GetComponent<Rigidbody>();
+
+            //get collider
+            objectCollider = gameObject.GetComponent<Collider>();
         }
 
         public override void OnFrame(InteractionController controller)
@@ -52,14 +58,11 @@ namespace Assets.Scripts.Interaction.Generic
         {
             //bind the object to exactly the hand's position
             objectRigidbody.MovePosition(controller.Target.transform.position);
-            Vector3 euler = controller.Target.transform.rotation.eulerAngles;
-            objectRigidbody.MoveRotation(Quaternion.Euler(euler));
 
-            /*//attach item position to hand mesh's position and rotation every frame if grabbed
-            gameObject.transform.position = controller.Target.transform.position;
-
-            Vector3 newAngles = originalRotationOnGrab - controller.Target.transform.rotation.eulerAngles;// + controller.RotationBias;
-            gameObject.transform.rotation = Quaternion.Euler(newAngles);*/
+            Quaternion rot = controller.Target.transform.rotation;
+            Quaternion around = Quaternion.Euler(RotationBias);
+            rot *= around * originalRotationOnGrab;
+            objectRigidbody.MoveRotation(rot);
         }
 
         public override void OnEnterClosest(InteractionController controller)
@@ -83,11 +86,15 @@ namespace Assets.Scripts.Interaction.Generic
             handRenderer.enabled = false;
 
             //get original hand rotation
-            originalRotationOnGrab = controller.Target.transform.rotation.eulerAngles; //+ gameObject.transform.rotation.eulerAngles;
+            originalRotationOnGrab = Quaternion.Inverse(controller.Target.transform.rotation * gameObject.transform.rotation);
 
             //freeze rotation
             objectRigidbody.freezeRotation = true;
             gameObject.transform.position = controller.Target.transform.position;
+
+            //disable colliders
+            //if (objectCollider) objectCollider.enabled = false;
+            ToggleHandCollisions(controller, false);
 
             //create joint
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
@@ -119,6 +126,9 @@ namespace Assets.Scripts.Interaction.Generic
 
             //disable joint
             Destroy(gameObject.GetComponent<FixedJoint>());
+
+            //enable collider
+            //if (objectCollider) objectCollider.enabled = true;
 
             //apply force equal to controller velocity
             objectRigidbody.AddForceAtPosition(controller.Velocity * 50f, controller.Position, ForceMode.Force);
