@@ -1,6 +1,0 @@
-=== Models ===
-Kitchen source 1: https://assetstore.unity.com/packages/3d/props/coffeeshop-starter-pack-160914
-Kitchen source 2: https://assetstore.unity.com/packages/3d/environments/kitchen-creation-kit-2854
-
-=== Textures ===
-Knife handle: https://superdevresources.com/wp-content/uploads/2014/09/wood-textures.jpg
